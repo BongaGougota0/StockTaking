@@ -11,7 +11,6 @@ public class Item
     private String storeName;
     private String storeBranch;
 
-
     //************************************************Setters
     public void setProductName(String productName)
     {
