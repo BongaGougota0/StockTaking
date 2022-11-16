@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">iStockTake</string>
+    <!--Login-->
+    <!-- no text views only images on the left side + hints -->
+    <string name="login">Login</string>
+    <string name="password_hint">enter password</string>
+    <string name="username_hint">enter username</string>
+
+    <!--Registration page-->
+    <string name="Register">Create an account</string>
+    <string name="username_create">create unique username</string>
+    <string name="name">Enter your Name</string>
+    <string name="surname">Enter your Surname</string>
+    <string name="email">Enter your Email</string>
+    <string name="location">Enter your region/suburb/location</string>
+    <string name="password_create">create password</string>
+    <string name="password_create_conf">re-enter password</string>
+    <string name="register_prompt">Don\'t have an account? Register new account.</string>
+
 </resources>
