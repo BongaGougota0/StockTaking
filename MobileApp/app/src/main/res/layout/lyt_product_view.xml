@@ -34,7 +34,7 @@
                 android:layout_height="25dp"
                 android:layout_below="@id/productName"
                 android:layout_marginTop="4dp"
-                android:text="ProductName"
+                android:text="ProductPrice"
                 android:textColor="@color/primaryColorLighter" />
 
             <TextView
