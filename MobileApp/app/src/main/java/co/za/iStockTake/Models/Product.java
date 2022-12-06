@@ -2,7 +2,7 @@ package co.za.iStockTake.Models;
 
 import java.io.File;
 
-public class Item
+public class Product
 {
     public String productName;
     public String productBarCode;
