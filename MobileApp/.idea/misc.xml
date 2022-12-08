@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/drawable/black_background.xml" value="0.2942708333333333" />
+        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/drawable/grey_background.xml" value="0.25" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/drawable/round_circle.xml" value="0.2942708333333333" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/drawable/white_bg.xml" value="0.2942708333333333" />
+        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_home_page.xml" value="0.2" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_login_page.xml" value="0.28335832083958024" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_main_product_view.xml" value="0.278125" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_product_view.xml" value="0.278125" />
-        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_user_main_page.xml" value="0.278125" />
+        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_user_main_page.xml" value="0.25" />
       </map>
     </option>
   </component>
