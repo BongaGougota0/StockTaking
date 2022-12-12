@@ -17,4 +17,10 @@
     <string name="password_create_conf">re-enter password</string>
     <string name="register_prompt">Don\'t have an account? Register new account.</string>
 
+
+    <!--Product View Page-->
+    <string name="product_description">About this product, text description about product</string>
+    <string name="store_name">Store Name</string>
+    <string name="product_price">Product selling price</string>
+
 </resources>

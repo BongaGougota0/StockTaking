@@ -67,4 +67,8 @@ public class User
     {
         return location;
     }
+
+    public String getUserEmail(){return userEmail;}
+
+    public String getName(){return name;}
 }

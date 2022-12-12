@@ -14,6 +14,7 @@ public class Product
     private String storeName;
     private String storeBranch;
     private String produtCategory;
+    private String productDescription;
 
     public void setStoreName(String storeName)
     {
@@ -85,5 +86,9 @@ public class Product
     public String getStoreBranch()
     {
         return storeBranch;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
     }
 }
