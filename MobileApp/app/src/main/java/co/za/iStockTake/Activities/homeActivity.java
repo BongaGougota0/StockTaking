@@ -47,6 +47,7 @@ public class homeActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyt_home_page);
+        getSupportActionBar().hide();
 
         txtSearchText = findViewById(R.id.searchText);
         headerHomeImg = findViewById(R.id.homeHeaderImage);
@@ -70,16 +71,19 @@ public class homeActivity extends AppCompatActivity
         trendingProducts.add(new Product("Shake",R.drawable.asian_coconut_40_ml));
         trendingProducts.add(new Product("Milk Shake",R.drawable.asian_coconut_40_ml));
 
-        categories.add(new Category("Fish", R.drawable.black_background));
-        categories.add(new Category("Fish", R.drawable.black_background));
-        categories.add(new Category("Fish", R.drawable.black_background));
-        categories.add(new Category("Fish", R.drawable.black_background));
-        categories.add(new Category("Fish", R.drawable.black_background));
+        categories.add(new Category("cat 1", R.drawable.black_background));
+        categories.add(new Category("Cereals", R.drawable.black_background));
+        categories.add(new Category("Confectionary", R.drawable.black_background));
+        categories.add(new Category("cat 4", R.drawable.black_background));
+        categories.add(new Category("HouseHolds", R.drawable.black_background));
+        categories.add(new Category("Cleaning Agents", R.drawable.black_background));
+        categories.add(new Category("Sugars", R.drawable.black_background));
 
-        arrayStores.add(new Store("HelloWorld",R.drawable.demo_ico));
+        arrayStores.add(new Store("Shoprite",R.drawable.demo_ico));
         arrayStores.add(new Store("Viva",R.drawable.demo_ico));
         arrayStores.add(new Store("General",R.drawable.demo_ico));
         arrayStores.add(new Store("Supasave",R.drawable.demo_ico));
+        arrayStores.add(new Store("Pick'n'Pay",R.drawable.demo_ico));
 
         //Home Recycler Views
         LinearLayoutManager linearLayoutManager0 = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL, false);
