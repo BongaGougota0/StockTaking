@@ -6,6 +6,12 @@ public class Store
     Integer storeNumbers;
     String storeDescription;
     String storeLocation;
+    Integer imageStore;
+
+    public Integer getImageStore()
+    {
+        return imageStore;
+    }
 
     public Store(String storeName, Integer storeNumbers, String storeDescription, String storeLocation)
     {
@@ -19,6 +25,12 @@ public class Store
     {
         this.storeName = storeName;
         this.storeLocation = storeLocation;
+    }
+
+    public Store(String storeName, Integer storeLocation)
+    {
+        this.storeName = storeName;
+        this.imageStore = storeLocation;
     }
 
     public String getStoreName()

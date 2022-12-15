@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import co.za.iStockTake.Models.Category;
 import co.za.iStockTake.R;
 
-public class categoriesAdapter extends RecyclerView.Adapter<categoriesAdapter.categoryHolder>
+public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.categoryHolder>
 {
     private ArrayList<Category> categories;
     private Context context;
 
-    public categoriesAdapter(ArrayList<Category> categories, Context context)
+    public CategoriesAdapter(ArrayList<Category> categories, Context context)
     {
         this.categories = categories;
         this.context = context;

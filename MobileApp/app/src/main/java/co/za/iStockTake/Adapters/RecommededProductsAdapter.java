@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,12 +16,12 @@ import co.za.iStockTake.Models.Product;
 import co.za.iStockTake.R;
 
 
-public class recommededProductsAdapter extends RecyclerView.Adapter<recommededProductsAdapter.ProductHolder>
+public class RecommededProductsAdapter extends RecyclerView.Adapter<RecommededProductsAdapter.ProductHolder>
 {
     private ArrayList<Product> products;
     private Context context;
 
-    public recommededProductsAdapter(ArrayList<Product> products, Context context)
+    public RecommededProductsAdapter(ArrayList<Product> products, Context context)
     {
         this.products = products;
         this.context = context;
@@ -30,7 +29,7 @@ public class recommededProductsAdapter extends RecyclerView.Adapter<recommededPr
 
     @NonNull
     @Override
-    public recommededProductsAdapter.ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public RecommededProductsAdapter.ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lyt_product_view,parent);
         return new ProductHolder(view);

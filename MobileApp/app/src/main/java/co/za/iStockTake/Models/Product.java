@@ -9,12 +9,18 @@ public class Product
 {
     public String productName;
     public String productBarCode;
-    public ImageView productImage;
+    public Integer productImage;
     public Integer productPrice;
     private String storeName;
     private String storeBranch;
-    private String produtCategory;
+    private String productCategory;
     private String productDescription;
+
+    public Product(String productName, int productImage)
+    {
+        this.productName = productName;
+        this.productImage = productImage;
+    }
 
     public void setStoreName(String storeName)
     {
@@ -28,12 +34,12 @@ public class Product
 
     public String getProdutCategory()
     {
-        return produtCategory;
+        return productCategory;
     }
 
     public void setProdutCategory(String produtCategory)
     {
-        this.produtCategory = produtCategory;
+        this.productCategory = produtCategory;
     }
 
     //************************************************Setters
@@ -47,7 +53,7 @@ public class Product
         this.productBarCode = productBarCode;
     }
 
-    public void setProductImage(ImageView productImage)
+    public void setProductImage(Integer productImage)
     {
         this.productImage = productImage;
     }
@@ -68,7 +74,7 @@ public class Product
         return productBarCode;
     }
 
-    public ImageView getProductImage()
+    public Integer getProductImage()
     {
         return productImage;
     }
