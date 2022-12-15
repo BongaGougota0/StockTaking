@@ -16,19 +16,19 @@ public class Category
         this.categoryName = categoryName;
     }
 
-    public ImageView getImgCategory()
+    public Integer getImgCategory()
     {
         return imgCategory;
     }
 
-    public void setImgCategory(ImageView imgCategory)
+    public void setImgCategory(Integer imgCategory)
     {
         this.imgCategory = imgCategory;
     }
 
-    private ImageView imgCategory;
+    private Integer imgCategory;
 
-    public Category(String categoryName, ImageView imgCategory)
+    public Category(String categoryName, Integer imgCategory)
     {
         this.categoryName = categoryName;
         this.imgCategory = imgCategory;

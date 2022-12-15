@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +30,7 @@ public class categoriesAdapter extends RecyclerView.Adapter<categoriesAdapter.ca
     @Override
     public categoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lyt_home_page,null,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.col_category_item,null,false);
         return new categoryHolder(view);
     }
 
@@ -36,6 +38,8 @@ public class categoriesAdapter extends RecyclerView.Adapter<categoriesAdapter.ca
     public void onBindViewHolder(@NonNull categoryHolder holder, int position)
     {
         //Setup view here
+        holder.imgcateImag.setImageResource(categories.get(position).getImgCategory());
+        holder.txtcateTitle.setText(categories.get(position).getCategoryName());
     }
 
     @Override
@@ -46,11 +50,13 @@ public class categoriesAdapter extends RecyclerView.Adapter<categoriesAdapter.ca
 
     public class categoryHolder extends RecyclerView.ViewHolder
     {
-        RecyclerView recyclerView;
+        TextView txtcateTitle;
+        ImageView imgcateImag;
         public categoryHolder(@NonNull View itemView)
         {
             super(itemView);
-            recyclerView = itemView.findViewById(R.id.categoriesRecycler);
+            txtcateTitle = itemView.findViewById(R.id.categoryTitle);
+            imgcateImag = itemView.findViewById(R.id.categoryIcon);
         }
     }
 }
