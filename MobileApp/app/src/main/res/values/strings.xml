@@ -22,5 +22,9 @@
     <string name="product_description">About this product, text description about product</string>
     <string name="store_name">Store Name</string>
     <string name="product_price">Product selling price</string>
+    <string name="product_name">product name</string>
+
+
+    <string name="category_name">Category Name</string>
 
 </resources>
