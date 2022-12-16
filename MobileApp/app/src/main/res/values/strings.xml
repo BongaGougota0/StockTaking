@@ -21,10 +21,11 @@
     <!--Product View Page-->
     <string name="product_description">About this product, text description about product</string>
     <string name="store_name">Store Name</string>
+    <string name="product_category">product category</string>
     <string name="product_price">Product selling price</string>
-    <string name="product_name">product name</string>
-
-
+    <string name="product_price_ph">R13.00</string>
+    <string name="product_name">Product Name</string>
     <string name="category_name">Category Name</string>
+    <string name="add_to_list">Add to list</string>
 
 </resources>
