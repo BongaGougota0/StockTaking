@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    
+    <item
+        android:id="@+id/navMain"
+        android:icon="@drawable/home_icon"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/navCategories"
+        android:icon="@drawable/category_icon"
+        android:title="@string/categories" />
+
+    <item
+        android:id="@+id/navTrending"
+        android:icon="@drawable/trending_icon"
+        android:title="@string/trending" />
+
+    <item
+        android:id="@+id/navLogout"
+        android:icon="@drawable/logout_icon"
+        android:title="@string/logout" />
 
 </menu>

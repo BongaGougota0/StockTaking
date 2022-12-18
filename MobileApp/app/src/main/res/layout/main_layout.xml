@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="@color/white"
     tools:ignore="Overdraw">
 
     <include layout="@layout/lyt_toolbar" />
 
     <FrameLayout
         android:id="@+id/container"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigationView"
         android:layout_below="@+id/toolbar"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,7 +31,6 @@
         app:itemIconTint="@color/primaryColor"
         app:itemRippleColor="@color/primaryColor"
         app:itemTextColor="@color/primaryColor"
-        app:menu="@menu/navigation" />
-
+        app:menu="@layout/navigation" />
 
 </RelativeLayout>

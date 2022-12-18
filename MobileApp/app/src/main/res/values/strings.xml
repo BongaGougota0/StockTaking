@@ -17,7 +17,6 @@
     <string name="password_create_conf">re-enter password</string>
     <string name="register_prompt">Don\'t have an account? Register new account.</string>
 
-
     <!--Product View Page-->
     <string name="product_description">About this product, text description about product</string>
     <string name="store_name">Store Name</string>
@@ -27,5 +26,15 @@
     <string name="product_name">Product Name</string>
     <string name="category_name">Category Name</string>
     <string name="add_to_list">Add to list</string>
+
+    <!--Navigations-->
+    <string name="logout">Logout</string>
+    <string name="home">Home</string>
+    <string name="categories">Categories</string>
+    <string name="my_list">My List</string>
+    <string name="my_favourite">My Favourite</string>
+    <string name="trending">Trending</string>
+    <string name="sale">Sale</string>
+    <string name="hi_user">Hi!</string>
 
 </resources>

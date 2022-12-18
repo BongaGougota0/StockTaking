@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     app:contentInsetStartWithNavigation="0dp"
-    app:menu="@menu/main_menu"
+    app:menu="@layout/main_menu"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:titleTextColor="@color/primaryColor"
     local:ignore="Overdraw"
@@ -19,8 +19,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewHamburger"
-            android:layout_width="@dimen/_26sdp"
-            android:layout_height="@dimen/_26sdp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_alignParentStart="true"
             android:elevation="0dp"
             app:cardBackgroundColor="@color/primaryColorLighter"
@@ -37,14 +37,14 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:contentDescription="@string/app_name"
-                    android:padding="@dimen/_8sdp"
+                    android:padding="8dp"
                     android:src="@drawable/demo_ico"
                     android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/imageHome"
-                    android:layout_width="@dimen/_26sdp"
-                    android:layout_height="@dimen/_26sdp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:layout_alignParentStart="true"
                     android:contentDescription="@string/app_name"
                     app:srcCompat="@drawable/demo_ico" />
@@ -58,15 +58,15 @@
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="3dp"
             android:layout_toEndOf="@+id/cardViewHamburger"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@string/hi_user"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/title_txt_color"
+            android:textColor="@color/black"
             android:textStyle="bold" />
     </RelativeLayout>
 
