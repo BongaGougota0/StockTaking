@@ -1,6 +1,7 @@
 package co.za.iStockTake.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,9 +42,23 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
     public void onBindViewHolder(@NonNull trendHolder holder, int position)
     {
         //Setup view here
-        holder.imgProdImage.setImageResource(R.drawable.demo_ico);
         holder.txtTrendTitle.setText(trendingItems.get(position).getProductName());
+
+        Picasso.get().load(R.drawable.placeholder)
+                .fit()
+                .centerInside()
+                .into(holder.imgProdImage);
+
+        holder.addtolist.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
     }
+
 
     @Override
     public int getItemCount()
@@ -51,13 +68,15 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
 
     public class trendHolder extends RecyclerView.ViewHolder
     {
-        TextView txtTrendTitle;
+        TextView txtTrendTitle, addtolist;
         ImageView imgProdImage;
+
         public trendHolder(@NonNull View itemView)
         {
             super(itemView);
             txtTrendTitle = itemView.findViewById(R.id.trendingProductTitle);
             imgProdImage = itemView.findViewById(R.id.trendingProductImage);
+            addtolist = itemView.findViewById(R.id.addToList);
         }
     }
 }

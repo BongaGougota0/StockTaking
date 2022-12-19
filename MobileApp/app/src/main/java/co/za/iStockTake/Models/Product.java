@@ -4,22 +4,33 @@ import android.media.Image;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class Product
+public class Product implements Serializable
 {
     public String productName;
-    public String productBarCode;
-    public Integer productImage;
+    public String productImage;
     public Integer productPrice;
     private String storeName;
     private String storeBranch;
     private String productCategory;
     private String productDescription;
+    private Integer productCount;
 
-    public Product(String productName, int productImage)
+    public Product(String productName, String productImage)
     {
         this.productName = productName;
         this.productImage = productImage;
+    }
+
+    public Product(String productName, String productImage, Integer productPrice, String storeName, String productCategory, String productDescription)
+    {
+        this.productName = productName;
+        this.productImage = productImage;
+        this.productPrice = productPrice;
+        this.storeName = storeName;
+        this.productCategory = productCategory;
+        this.productDescription = productDescription;
     }
 
     public void setStoreName(String storeName)
@@ -48,12 +59,8 @@ public class Product
         this.productName = productName;
     }
 
-    public void setProductBarCode(String productBarCode)
-    {
-        this.productBarCode = productBarCode;
-    }
 
-    public void setProductImage(Integer productImage)
+    public void setProductImage(String productImage)
     {
         this.productImage = productImage;
     }
@@ -69,12 +76,7 @@ public class Product
         return productName;
     }
 
-    public String getProductBarCode()
-    {
-        return productBarCode;
-    }
-
-    public Integer getProductImage()
+    public String getProductImage()
     {
         return productImage;
     }

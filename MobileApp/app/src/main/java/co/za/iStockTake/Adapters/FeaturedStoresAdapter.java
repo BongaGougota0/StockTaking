@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import co.za.iStockTake.Models.Store;
@@ -38,8 +40,12 @@ public class FeaturedStoresAdapter extends RecyclerView.Adapter<FeaturedStoresAd
     public void onBindViewHolder(@NonNull storeHolder holder, int position)
     {
         //Setup view here
-        holder.imgStoreIcon.setImageResource(R.drawable.demo_ico);
         holder.txtStoreName.setText(stores.get(position).getStoreName());
+
+        Picasso.get().load(R.drawable.demo_ico)
+                .fit()
+                .centerInside()
+                .into(holder.imgStoreIcon);
     }
 
     @Override

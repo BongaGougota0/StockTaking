@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import co.za.iStockTake.Adapters.CategoriesAdapter;
 import co.za.iStockTake.Adapters.FeaturedStoresAdapter;
 import co.za.iStockTake.Adapters.TrendingAdapter;
+import co.za.iStockTake.Helper;
 import co.za.iStockTake.Models.Category;
 import co.za.iStockTake.Models.Product;
 import co.za.iStockTake.Models.Store;
@@ -41,6 +42,7 @@ public class homeActivity extends AppCompatActivity
     ArrayList<Product> trendingProducts;
     ArrayList<Store> arrayStores;
     ArrayList<Category> categories;
+    Helper listManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -49,27 +51,29 @@ public class homeActivity extends AppCompatActivity
         setContentView(R.layout.lyt_home_page);
         getSupportActionBar().hide();
 
-        txtSearchText = findViewById(R.id.searchText);
-        headerHomeImg = findViewById(R.id.homeHeaderImage);
-        searchGoImg = findViewById(R.id.searchGo);
-        homeDataImg =  findViewById(R.id.homeData);
-        homeListImg = findViewById(R.id.homeList);
-        articleHeaderImg = findViewById(R.id.articleHeaderImage);
-
-        recyclerViewCategories = findViewById(R.id.categoriesRecycler);
-        recyclerViewTrending = findViewById(R.id.trendingRecycler);
-        featuredStores = findViewById(R.id.featuredStoresRecycler);
+        initViews();
 
         trendingProducts = new ArrayList<>();
         categories = new ArrayList<>();
         arrayStores = new ArrayList<>();
 
+        //this will hold the users list of products.
+        listManager = new Helper(getApplicationContext());
+
+        //once api done comment out.
+        /**
+         * trendingProducts = getTrending();
+         * categories = getCategories();
+         * arrayStores = getFeaturedStores();
+         */
+
+        String str = "R.drawable.asian_coconut_40_ml";
         //demo data- testing
-        trendingProducts.add(new Product("milk",R.drawable.asian_coconut_40_ml));
-        trendingProducts.add(new Product("Shake",R.drawable.asian_coconut_40_ml));
-        trendingProducts.add(new Product("Milk Shake",R.drawable.asian_coconut_40_ml));
-        trendingProducts.add(new Product("Shake",R.drawable.asian_coconut_40_ml));
-        trendingProducts.add(new Product("Milk Shake",R.drawable.asian_coconut_40_ml));
+        trendingProducts.add(new Product("milk",str));
+        trendingProducts.add(new Product("Shake",str));
+        trendingProducts.add(new Product("Milk Shake",str));
+        trendingProducts.add(new Product("Shake",str));
+        trendingProducts.add(new Product("Milk Shake",str));
 
         categories.add(new Category("cat 1", R.drawable.black_background));
         categories.add(new Category("Cereals", R.drawable.black_background));
@@ -102,5 +106,41 @@ public class homeActivity extends AppCompatActivity
         FeaturedStoresAdapter arrayStoreAdapter = new FeaturedStoresAdapter(arrayStores,homeActivity.this);
         featuredStores.setAdapter(arrayStoreAdapter);
 
+    }
+
+    public void initViews()
+    {
+        txtSearchText = findViewById(R.id.searchText);
+        headerHomeImg = findViewById(R.id.homeHeaderImage);
+        searchGoImg = findViewById(R.id.searchGo);
+        homeDataImg =  findViewById(R.id.homeData);
+        homeListImg = findViewById(R.id.homeList);
+        articleHeaderImg = findViewById(R.id.articleHeaderImage);
+
+        recyclerViewCategories = findViewById(R.id.categoriesRecycler);
+        recyclerViewTrending = findViewById(R.id.trendingRecycler);
+        featuredStores = findViewById(R.id.featuredStoresRecycler);
+    }
+
+    //get data from API
+    public ArrayList<Category> getCategories()
+    {
+        ArrayList<Category> categories = new ArrayList<>();
+
+        return categories;
+    }
+
+    public ArrayList<Product> getTrending()
+    {
+        ArrayList<Product> trending = new ArrayList<>();
+
+        return trending;
+    }
+
+    public ArrayList<Store> getFeaturedStores()
+    {
+        ArrayList<Store> stores = new ArrayList<>();
+
+        return stores;
     }
 }

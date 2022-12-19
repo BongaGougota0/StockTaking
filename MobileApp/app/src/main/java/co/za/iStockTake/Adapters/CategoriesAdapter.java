@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import co.za.iStockTake.Models.Category;
@@ -38,8 +40,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ca
     public void onBindViewHolder(@NonNull categoryHolder holder, int position)
     {
         //Setup view here
-        holder.imgcateImag.setImageResource(categories.get(position).getImgCategory());
         holder.txtcateTitle.setText(categories.get(position).getCategoryName());
+
+        Picasso.get().load(R.drawable.demo_ico)
+                .fit()
+                .centerInside()
+                .into(holder.imgcateImag);
     }
 
     @Override
