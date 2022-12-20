@@ -1,7 +1,6 @@
 package co.za.iStockTake.Activities;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import co.za.iStockTake.Adapters.CategoriesAdapter;
 import co.za.iStockTake.Adapters.FeaturedStoresAdapter;
 import co.za.iStockTake.Adapters.TrendingAdapter;
-import co.za.iStockTake.Helper;
 import co.za.iStockTake.Models.Category;
 import co.za.iStockTake.Models.Product;
 import co.za.iStockTake.Models.Store;
@@ -42,7 +40,6 @@ public class homeActivity extends AppCompatActivity
     ArrayList<Product> trendingProducts;
     ArrayList<Store> arrayStores;
     ArrayList<Category> categories;
-    Helper listManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -56,9 +53,6 @@ public class homeActivity extends AppCompatActivity
         trendingProducts = new ArrayList<>();
         categories = new ArrayList<>();
         arrayStores = new ArrayList<>();
-
-        //this will hold the users list of products.
-        listManager = new Helper(getApplicationContext());
 
         //once api done comment out.
         /**

@@ -1,5 +1,7 @@
 package co.za.iStockTake.Activities;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,12 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import co.za.iStockTake.Helper;
+import co.za.iStockTake.ManagementList;
 import co.za.iStockTake.Models.Product;
 import co.za.iStockTake.R;
 
@@ -35,19 +37,25 @@ public class productViewActivity extends AppCompatActivity
     ImageView imageView;
     TextView txtProductName, txtProductSellPrice, txtProductStoreName, txtProductDescription, txtProductCategory,
             btnMinus, btnAdd, productCount, addtolist;
+
+    RecyclerView relatedProducts;
     int numberOrder = 1;
     ArrayList<Product> productArrayList;
     private Product product;
-    Helper helper;
+    private ManagementList managementList;
+
 
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyt_main_product_view);
+        getSupportActionBar().hide();
 
         initViews();
 
-        helper = new Helper(this);
+        getBundle();
+
+        managementList = new ManagementList(this);
 
         //add or minus product count
         btnMinus.setOnClickListener(new View.OnClickListener()
@@ -80,7 +88,7 @@ public class productViewActivity extends AppCompatActivity
             {
                 //take the number of this product and add to list
                 product.setProductCount(numberOrder);
-                helper.inserToList(product);
+                managementList.inserToList(product);
             }
         });
 
@@ -99,25 +107,24 @@ public class productViewActivity extends AppCompatActivity
         btnAdd = findViewById(R.id.plusBtn);
         btnMinus = findViewById(R.id.minusBtn);
         addtolist = findViewById(R.id.addToMyList);
-
+        relatedProducts = findViewById(R.id.relatedProductsRV);
         productCount = findViewById(R.id.productCount);
-        //productCount.setText(numberOrder);
     }
 
     //get data from previous activity, set data;
     public void getBundle()
     {
-        product = (Product) getIntent().getSerializableExtra("product");
+        product = (Product) getIntent().getSerializableExtra("ProductList");
 
         txtProductName.setText(product.getProductName());
         txtProductDescription.setText(product.getProductDescription());
-        txtProductSellPrice.setText(product.getProductPrice());
-        txtProductCategory.setText(product.getProdutCategory());
+        txtProductSellPrice.setText(String.valueOf(product.getProductPrice()));
+        txtProductStoreName.setText(product.getProdutCategory());
 
         Picasso.get().load(R.drawable.placeholder)
                 .fit()
-                .centerInside()
-                .into(product.getProductImage());
+                .centerInside();
+                //.into(product.getProductImage());
     }
 
     public ArrayList<Product> getRelatedProducts(String productCategory)
