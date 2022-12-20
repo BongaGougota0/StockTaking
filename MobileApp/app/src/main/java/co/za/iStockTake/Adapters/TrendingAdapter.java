@@ -1,6 +1,8 @@
 package co.za.iStockTake.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
-import co.za.iStockTake.Models.Category;
+import co.za.iStockTake.Activities.productViewActivity;
+import co.za.iStockTake.ManagementList;
 import co.za.iStockTake.Models.Product;
 import co.za.iStockTake.R;
 
@@ -20,11 +25,14 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
 {
     private ArrayList<Product> trendingItems;
     private Context context;
+    private Product product;
+    ManagementList managementList;
 
     public TrendingAdapter(ArrayList<Product> trendingItems, Context context)
     {
         this.trendingItems = trendingItems;
         this.context = context;
+        managementList = new ManagementList(context);
     }
 
     @NonNull
@@ -36,12 +44,50 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull trendHolder holder, int position)
+    public void onBindViewHolder(@NonNull trendHolder holder, @SuppressLint("RecyclerView") int position)
     {
         //Setup view here
-        holder.imgProdImage.setImageResource(R.drawable.demo_ico);
         holder.txtTrendTitle.setText(trendingItems.get(position).getProductName());
+
+        Picasso.get().load(R.drawable.placeholder)
+                .fit()
+                .centerInside()
+                .into(holder.imgProdImage);
+
+        product = new Product(trendingItems.get(position).productName,
+                trendingItems.get(position).getProductPrice(),
+                trendingItems.get(position).getProductCategory()
+                ,trendingItems.get(position).getProductDescription());
+
+        holder.addtolist.setOnClickListener(new View.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                //helper.inserToList(product);
+                //Intent intent = new Intent(holder.itemView.getContext(), productViewActivity.class);
+                //intent.putExtra("product",trendingItems.get(position));
+                managementList.inserToList(trendingItems.get(position));
+                //holder.itemView.getContext().startActivity(intent);
+
+
+            }
+        });
+
+        holder.imgProdImage.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(context, productViewActivity.class);
+                intent.putExtra("ProductList",product);
+                //managementList.putObject("product",product);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount()
@@ -51,13 +97,15 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
 
     public class trendHolder extends RecyclerView.ViewHolder
     {
-        TextView txtTrendTitle;
+        TextView txtTrendTitle, addtolist;
         ImageView imgProdImage;
+
         public trendHolder(@NonNull View itemView)
         {
             super(itemView);
             txtTrendTitle = itemView.findViewById(R.id.trendingProductTitle);
             imgProdImage = itemView.findViewById(R.id.trendingProductImage);
+            addtolist = itemView.findViewById(R.id.addToList);
         }
     }
 }

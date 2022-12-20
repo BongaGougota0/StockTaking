@@ -1,25 +1,63 @@
 package co.za.iStockTake.Models;
 
-import android.media.Image;
 import android.widget.ImageView;
 
-import java.io.File;
+import java.io.Serializable;
 
-public class Product
+public class Product implements Serializable
 {
     public String productName;
-    public String productBarCode;
-    public Integer productImage;
+    public ImageView productImage;
     public Integer productPrice;
     private String storeName;
     private String storeBranch;
     private String productCategory;
     private String productDescription;
 
-    public Product(String productName, int productImage)
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
+    }
+
+    private Integer productCount;
+
+    public Product(String productName, ImageView productImage)
     {
         this.productName = productName;
         this.productImage = productImage;
+    }
+
+    public Product(String productName, ImageView productImage, Integer productPrice, String storeName, String productCategory, String productDescription)
+    {
+        this.productName = productName;
+        this.productImage = productImage;
+        this.productPrice = productPrice;
+        this.storeName = storeName;
+        this.productCategory = productCategory;
+        this.productDescription = productDescription;
+    }
+
+    public Product(String productName, Integer productPrice, String productCategory, String productDescription)
+    {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productCategory = productCategory;
+        this.productDescription = productDescription;
     }
 
     public void setStoreName(String storeName)
@@ -48,12 +86,8 @@ public class Product
         this.productName = productName;
     }
 
-    public void setProductBarCode(String productBarCode)
-    {
-        this.productBarCode = productBarCode;
-    }
 
-    public void setProductImage(Integer productImage)
+    public void setProductImage(ImageView productImage)
     {
         this.productImage = productImage;
     }
@@ -69,12 +103,7 @@ public class Product
         return productName;
     }
 
-    public String getProductBarCode()
-    {
-        return productBarCode;
-    }
-
-    public Integer getProductImage()
+    public ImageView getProductImage()
     {
         return productImage;
     }

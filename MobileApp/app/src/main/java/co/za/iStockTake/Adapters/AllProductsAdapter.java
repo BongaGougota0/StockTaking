@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -40,9 +42,13 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     public void onBindViewHolder(@NonNull AllProductsAdapter.ProductHolder holder, int position)
     {
         //Demo
-        holder.productImage.setImageResource(R.drawable.asian_coconut_40_ml);
         holder.productName.setText(products.get(position).getProductName());
         holder.productPrice.setText(products.get(position).getProductPrice());
+
+        Picasso.get().load(R.drawable.asian_coconut_40_ml)
+                .fit()
+                .centerInside()
+                .into(holder.productImage);
 
         holder.btnAddToList.setOnClickListener(new View.OnClickListener()
         {
