@@ -17,8 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import co.za.iStockTake.Activities.productViewActivity;
-import co.za.iStockTake.Helper;
-import co.za.iStockTake.Models.Category;
+import co.za.iStockTake.ManagementList;
 import co.za.iStockTake.Models.Product;
 import co.za.iStockTake.R;
 
@@ -27,13 +26,13 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
     private ArrayList<Product> trendingItems;
     private Context context;
     private Product product;
-    Helper helper;
+    ManagementList managementList;
 
     public TrendingAdapter(ArrayList<Product> trendingItems, Context context)
     {
         this.trendingItems = trendingItems;
         this.context = context;
-        helper = new Helper(context);
+        managementList = new ManagementList(context);
     }
 
     @NonNull
@@ -67,9 +66,24 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
             public void onClick(View v)
             {
                 //helper.inserToList(product);
-                Intent intent = new Intent(holder.itemView.getContext(), productViewActivity.class);
-                intent.putExtra("product",trendingItems.get(position));
-                holder.itemView.getContext().startActivity(intent);
+                //Intent intent = new Intent(holder.itemView.getContext(), productViewActivity.class);
+                //intent.putExtra("product",trendingItems.get(position));
+                managementList.inserToList(trendingItems.get(position));
+                //holder.itemView.getContext().startActivity(intent);
+
+
+            }
+        });
+
+        holder.imgProdImage.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(context, productViewActivity.class);
+                intent.putExtra("ProductList",product);
+                //managementList.putObject("product",product);
+                v.getContext().startActivity(intent);
             }
         });
     }
@@ -81,7 +95,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
         return trendingItems.size();
     }
 
-    public class trendHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    public class trendHolder extends RecyclerView.ViewHolder
     {
         TextView txtTrendTitle, addtolist;
         ImageView imgProdImage;
@@ -92,15 +106,6 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
             txtTrendTitle = itemView.findViewById(R.id.trendingProductTitle);
             imgProdImage = itemView.findViewById(R.id.trendingProductImage);
             addtolist = itemView.findViewById(R.id.addToList);
-        }
-
-        @Override
-        public void onClick(View v)
-        {
-            Intent intent = new Intent(context, productViewActivity.class);
-            intent.putExtra("product",product);
-            helper.putObject("product",product);
-            itemView.getContext().startActivity(intent);
         }
     }
 }
