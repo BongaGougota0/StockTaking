@@ -1,6 +1,9 @@
 package co.za.iStockTake.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -8,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import co.za.iStockTake.Adapters.ProductListAdapter;
 import co.za.iStockTake.Interfaces.ChangeNumberItemsListener;
@@ -47,6 +52,7 @@ public class myProductListActivity extends AppCompatActivity
 
         initlist();
         calculateListCost();
+        bottomNavigation();
     }
 
     public void initlist()
@@ -72,5 +78,28 @@ public class myProductListActivity extends AppCompatActivity
         txtTax.setText("Tax @ 15"+tax);
         double total= Math.round((managementList.getTotalCost()*100)/100);
         txtTotal.setText("R"+total);
+    }
+
+    private void bottomNavigation()
+    {
+        FloatingActionButton fap = findViewById(R.id.myList);
+        LinearLayout home = findViewById(R.id.btnLayout);
+
+        fap.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(myProductListActivity.this, myProductListActivity.class));
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(myProductListActivity.this, homeActivity.class));
+            }
+        });
     }
 }

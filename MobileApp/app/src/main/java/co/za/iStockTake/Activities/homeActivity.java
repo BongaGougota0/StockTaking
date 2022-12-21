@@ -1,13 +1,18 @@
 package co.za.iStockTake.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -100,6 +105,8 @@ public class homeActivity extends AppCompatActivity
         FeaturedStoresAdapter arrayStoreAdapter = new FeaturedStoresAdapter(arrayStores,homeActivity.this);
         featuredStores.setAdapter(arrayStoreAdapter);
 
+        bottomNavigation();
+
     }
 
     public void initViews()
@@ -114,6 +121,29 @@ public class homeActivity extends AppCompatActivity
         recyclerViewCategories = findViewById(R.id.categoriesRecycler);
         recyclerViewTrending = findViewById(R.id.trendingRecycler);
         featuredStores = findViewById(R.id.featuredStoresRecycler);
+    }
+
+    private void bottomNavigation()
+    {
+        FloatingActionButton fap = findViewById(R.id.myList);
+        LinearLayout home = findViewById(R.id.btnLayout);
+
+        fap.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(homeActivity.this, myProductListActivity.class));
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(homeActivity.this, homeActivity.class));
+            }
+        });
     }
 
     //get data from API
