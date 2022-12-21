@@ -44,8 +44,9 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull trendHolder holder, @SuppressLint("RecyclerView") int position)
+    public void onBindViewHolder(@NonNull trendHolder holder, int position)
     {
+        int itemPosition = holder.getAdapterPosition();
         //Setup view here
         holder.txtTrendTitle.setText(trendingItems.get(position).getProductName());
 
@@ -68,7 +69,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
                 //helper.inserToList(product);
                 //Intent intent = new Intent(holder.itemView.getContext(), productViewActivity.class);
                 //intent.putExtra("product",trendingItems.get(position));
-                managementList.inserToList(trendingItems.get(position));
+                managementList.inserToList(trendingItems.get(itemPosition));
                 //holder.itemView.getContext().startActivity(intent);
 
 

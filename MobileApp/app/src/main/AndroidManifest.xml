@@ -12,6 +12,8 @@
         android:theme="@style/Theme.IStockTake"
         tools:targetApi="31">
         <activity android:name=".Activities.productViewActivity"/>
+        <activity android:name=".Activities.myProductListActivity"/>
+        <activity android:name=".Activities.allProductsActivity"/>
         <activity
             android:name=".Activities.homeActivity"
             android:exported="true">

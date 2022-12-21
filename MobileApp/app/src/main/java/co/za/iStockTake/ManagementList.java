@@ -3,8 +3,10 @@ package co.za.iStockTake;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import co.za.iStockTake.Interfaces.ChangeNumberItemsListener;
 import co.za.iStockTake.Models.Product;
 
 public class ManagementList
@@ -46,7 +48,40 @@ public class ManagementList
         Toast.makeText(context, "Product added to your list", Toast.LENGTH_SHORT).show();
     }
 
-    private ArrayList<Product> getList()
+    public void addToList(ArrayList<Product> products, int position, ChangeNumberItemsListener changeNumberItemsListener)
+    {
+        products.get(position).setProductCount(products.get(position).getProductCount()+1);
+        sharedPref.putListObject("Productlist", products);
+        changeNumberItemsListener.changed();
+    }
+
+    public void removefromList(ArrayList<Product> products, int position, ChangeNumberItemsListener changeNumberItemsListener)
+    {
+        if(products.get(position).getProductCount() == 1)
+        {
+            products.remove(position);
+        }
+        else
+        {
+            products.get(position).setProductCount(products.get(position).getProductCount()-1);
+        }
+        sharedPref.putListObject("Productlist", products);
+        changeNumberItemsListener.changed();
+    }
+
+    public double getTotalCost()
+    {
+        double total = 0;
+        ArrayList<Product> products = getList();
+        for(int i = 0; i < products.size(); i++)
+        {
+            total = total+ Math.round(products.get(i).getProductPrice()*products.get(i).getProductCount());
+        }
+
+        return  total;
+    }
+
+    public ArrayList<Product> getList()
     {
         return sharedPref.getListObject("ProductList");
     }
