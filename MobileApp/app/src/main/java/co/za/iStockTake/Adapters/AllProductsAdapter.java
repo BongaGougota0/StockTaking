@@ -43,7 +43,7 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     {
         //Demo
         holder.productName.setText(products.get(position).getProductName());
-        holder.productPrice.setText(products.get(position).getProductPrice());
+        holder.productPrice.setText(String.valueOf(products.get(position).getProductPrice()));
 
         Picasso.get().load(R.drawable.asian_coconut_40_ml)
                 .fit()

@@ -55,8 +55,8 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
                 .centerInside()
                 .into(holder.imgProdImage);
 
-        product = new Product(trendingItems.get(position).productName,
-                trendingItems.get(position).getProductPrice(),
+        product = new Product(trendingItems.get(position).getProductName(),
+                (int) trendingItems.get(position).getProductPrice(),
                 trendingItems.get(position).getProductCategory()
                 ,trendingItems.get(position).getProductDescription());
 

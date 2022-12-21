@@ -42,6 +42,7 @@ public class myProductListActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyt_list_products_view);
+        getSupportActionBar().hide();
 
         managementList = new ManagementList(this);
 

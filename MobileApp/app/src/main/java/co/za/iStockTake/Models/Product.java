@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public class Product implements Serializable
 {
-    public String productName;
-    public ImageView productImage;
-    public Integer productPrice;
+    private String productName;
+    private ImageView productImage;
+    private double productPrice;
     private String storeName;
     private String storeBranch;
     private String productCategory;
@@ -34,7 +34,7 @@ public class Product implements Serializable
         this.productCount = productCount;
     }
 
-    private Integer productCount;
+    private int productCount = 1;
 
     public Product(String productName, ImageView productImage)
     {
@@ -42,7 +42,7 @@ public class Product implements Serializable
         this.productImage = productImage;
     }
 
-    public Product(String productName, ImageView productImage, Integer productPrice, String storeName, String productCategory, String productDescription)
+    public Product(String productName, ImageView productImage, double productPrice, String storeName, String productCategory, String productDescription)
     {
         this.productName = productName;
         this.productImage = productImage;
@@ -108,7 +108,7 @@ public class Product implements Serializable
         return productImage;
     }
 
-    public int getProductPrice()
+    public double getProductPrice()
     {
         return productPrice;
     }

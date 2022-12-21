@@ -54,7 +54,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         holder.txtProductName.setText(products.get(position).getProductName());
 
-        holder.txtProductPrice.setText(products.get(position).getProductPrice());
+        holder.txtProductPrice.setText(String.valueOf(products.get(position).getProductPrice()));
 
         holder.txtProductCountOnList.setText(String.valueOf(Math.round(products.get(position).getProductPrice()
                 *products.get(position).getProductCount())*100/100));
@@ -99,8 +99,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public class Viewholder extends RecyclerView.ViewHolder
     {
         //Row views i.e Each product
-        ImageView imgProduct, lminus, lplus;
-        TextView txtProductName, txtProductPrice, txtItemsTotal, txtProductCountOnList;
+        ImageView imgProduct;
+        TextView txtProductName, txtProductPrice, txtItemsTotal, txtProductCountOnList, lminus, lplus;
 
         public Viewholder(@NonNull View itemView)
         {

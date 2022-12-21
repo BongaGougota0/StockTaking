@@ -78,7 +78,7 @@ public class ManagementList
             total = total+ Math.round(products.get(i).getProductPrice()*products.get(i).getProductCount());
         }
 
-        return  total;
+        return total;
     }
 
     public ArrayList<Product> getList()

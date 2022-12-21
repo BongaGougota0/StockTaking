@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +42,7 @@ public class homeActivity extends AppCompatActivity
     private RecyclerView recyclerViewCategories, recyclerViewTrending, featuredStores;
     ImageView headerHomeImg, searchGoImg, homeDataImg, homeListImg, articleHeaderImg;
     TextView txtSearchText;
+    ImageView home_, logout_, specials_, trending_;
 
     ArrayList<Product> trendingProducts;
     ArrayList<Store> arrayStores;
@@ -121,12 +123,48 @@ public class homeActivity extends AppCompatActivity
         recyclerViewCategories = findViewById(R.id.categoriesRecycler);
         recyclerViewTrending = findViewById(R.id.trendingRecycler);
         featuredStores = findViewById(R.id.featuredStoresRecycler);
+
+        home_ = findViewById(R.id.home);
+        trending_ = findViewById(R.id.trending);
+        specials_ = findViewById(R.id.sale);
+        logout_ = findViewById(R.id.logout);
+
+        home_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do nothing
+                Toast.makeText(homeActivity.this,"You are home.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        trending_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(homeActivity.this,"View trending items", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        specials_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(homeActivity.this,"Specials.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        logout_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(homeActivity.this,"Away!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void bottomNavigation()
     {
-        FloatingActionButton fap = findViewById(R.id.myList);
+        FloatingActionButton fap = (FloatingActionButton) findViewById(R.id.myList);
         LinearLayout home = findViewById(R.id.btnLayout);
+        //ImageView home_ = findViewById(R.id.home);
+
 
         fap.setOnClickListener(new View.OnClickListener()
         {

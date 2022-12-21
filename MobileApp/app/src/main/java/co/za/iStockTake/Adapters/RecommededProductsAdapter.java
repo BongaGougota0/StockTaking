@@ -41,7 +41,7 @@ public class RecommededProductsAdapter extends RecyclerView.Adapter<RecommededPr
         //holder.imgView.setImageResource(products.get(position).getProductImage());
         holder.tvProductName.setText(products.get(position).getProductName());
         holder.tvProductCategory.setText(products.get(position).getProdutCategory());
-        holder.tvProductPrice.setText(products.get(position).getProductPrice());
+        holder.tvProductPrice.setText(String.valueOf(products.get(position).getProductPrice()));
     }
 
     @Override
