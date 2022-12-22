@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,7 +64,8 @@ public class myProductListActivity extends AppCompatActivity
 
         adapter = new ProductListAdapter(managementList.getList(),this,new ChangeNumberItemsListener(){
             @Override
-            public void changed() {
+            public void changed()
+            {
                 calculateListCost();
             }
         });
@@ -76,9 +78,9 @@ public class myProductListActivity extends AppCompatActivity
         double vat = 0.15;
 
         double tax = Math.round((managementList.getTotalCost()*vat)*100/100);
-        txtTax.setText("Tax @ 15"+tax);
+        txtTax.setText("Tax @ 15% :"+tax);
         double total= Math.round((managementList.getTotalCost()*100)/100);
-        txtTotal.setText("R"+total);
+        txtTotal.setText("R "+total);
     }
 
     private void bottomNavigation()
@@ -91,7 +93,8 @@ public class myProductListActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(myProductListActivity.this, myProductListActivity.class));
+                //startActivity(new Intent(myProductListActivity.this, myProductListActivity.class));
+                Toast.makeText(myProductListActivity.this, "Already here.", Toast.LENGTH_SHORT).show();
             }
         });
 

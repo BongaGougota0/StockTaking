@@ -2,15 +2,19 @@ package co.za.iStockTake.Activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -54,6 +58,7 @@ public class productViewActivity extends AppCompatActivity
         initViews();
 
         getBundle();
+        bottomNavigation();
 
         managementList = new ManagementList(this);
 
@@ -109,6 +114,29 @@ public class productViewActivity extends AppCompatActivity
         addtolist = findViewById(R.id.addToMyList);
         relatedProducts = findViewById(R.id.relatedProductsRV);
         productCount = findViewById(R.id.productCount);
+    }
+
+    private void bottomNavigation()
+    {
+        FloatingActionButton fap = findViewById(R.id.myList);
+        LinearLayout home = findViewById(R.id.btnLayout);
+
+        fap.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(productViewActivity.this, myProductListActivity.class));
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent( productViewActivity.this, homeActivity.class));
+            }
+        });
     }
 
     //get data from previous activity, set data;
