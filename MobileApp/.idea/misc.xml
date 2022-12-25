@@ -13,18 +13,16 @@
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/col_trending_item.xml" value="0.278125" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_all_products_page.xml" value="0.278125" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_bottom_navigation.xml" value="0.2796875" />
-        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_home_page.xml" value="0.29145211122554066" />
-        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_list_products_view.xml" value="0.25" />
+        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_home_page.xml" value="0.33" />
+        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_list_products_view.xml" value="0.278125" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_login_page.xml" value="0.28335832083958024" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_main_product_view.xml" value="0.25" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_product_view.xml" value="0.278125" />
-        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_toolbar.xml" value="0.25" />
+        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_toolbar.xml" value="1.25" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/lyt_user_main_page.xml" value="0.25" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/main_layout.xml" value="0.2796875" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/main_menu.xml" value="0.2796875" />
         <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/navigation.xml" value="0.2796875" />
-        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/row_product_on_cart.xml" value="0.278125" />
-        <entry key="..\:/Users/gmvn/StockTaking/MobileApp/app/src/main/res/layout/row_product_on_list.xml" value="0.278125" />
       </map>
     </option>
   </component>

@@ -51,7 +51,7 @@ public class ManagementList
     public void addToList(ArrayList<Product> products, int position, ChangeNumberItemsListener changeNumberItemsListener)
     {
         products.get(position).setProductCount(products.get(position).getProductCount()+1);
-        sharedPref.putListObject("Productlist", products);
+        sharedPref.putListObject("ProductList", products);
         changeNumberItemsListener.changed();
     }
 
@@ -65,7 +65,7 @@ public class ManagementList
         {
             products.get(position).setProductCount(products.get(position).getProductCount()-1);
         }
-        sharedPref.putListObject("Productlist", products);
+        sharedPref.putListObject("ProductList", products);
         changeNumberItemsListener.changed();
     }
 
