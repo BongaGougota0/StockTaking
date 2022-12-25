@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -190,7 +189,6 @@
     </ScrollView>
 
     <FrameLayout
-        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
@@ -320,5 +318,6 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
