@@ -224,8 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
-                        android:text="My List"
-                        app:srcCompat="@drawable/demo_ico" />
+                        android:text="My List" />
 
                     <LinearLayout
                         android:layout_width="0dp"
