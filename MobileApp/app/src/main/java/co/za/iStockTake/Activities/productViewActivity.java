@@ -114,7 +114,7 @@ public class productViewActivity extends AppCompatActivity
     //get data from previous activity, set data;
     public void getBundle()
     {
-        product = (Product) getIntent().getSerializableExtra("ProductList");
+        product = (Product) getIntent().getSerializableExtra("product");
 
         txtProductName.setText(product.getProductName());
         txtProductDescription.setText(product.getProductDescription());

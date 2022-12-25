@@ -69,7 +69,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
                 //helper.inserToList(product);
                 //Intent intent = new Intent(holder.itemView.getContext(), productViewActivity.class);
                 //intent.putExtra("product",trendingItems.get(position));
-                managementList.inserToList(trendingItems.get(itemPosition));
+                managementList.inserToList(product);
                 //holder.itemView.getContext().startActivity(intent);
 
 
@@ -82,7 +82,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.trendH
             public void onClick(View v)
             {
                 Intent intent = new Intent(context, productViewActivity.class);
-                intent.putExtra("ProductList",product);
+                intent.putExtra("product",product);
                 //managementList.putObject("product",product);
                 v.getContext().startActivity(intent);
             }
