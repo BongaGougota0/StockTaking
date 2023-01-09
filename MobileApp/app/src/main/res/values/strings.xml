@@ -46,5 +46,9 @@
     <string name="total">Total</string>
     <string name="tax">tax @ 15%</string>
     <string name="empty">Your products list is empty.</string>
+    <string name="item_total">Item Total</string>
+    <string name="product">Product</string>
+    <string name="product_price_view">Selling Price</string>
+    <string name="price">Price</string>
 
 </resources>

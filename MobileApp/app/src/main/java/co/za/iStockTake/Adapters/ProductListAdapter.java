@@ -52,11 +52,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         holder.txtItemsTotal.setText(String.valueOf(products.get(position).getProductCount()));
 
-        holder.txtProductName.setText(products.get(position).getProductName());
+        holder.txtProductName.setText(" "+products.get(position).getProductName());
 
-        holder.txtProductPrice.setText(String.valueOf(products.get(position).getProductPrice()));
+        holder.txtProductPrice.setText("R "+String.valueOf(products.get(position).getProductPrice()));
 
-        holder.txtProductCountOnList.setText(String.valueOf(Math.round(products.get(position).getProductPrice()
+        holder.txtProductCountOnList.setText("R "+String.valueOf(Math.round(products.get(position).getProductPrice()
                 *products.get(position).getProductCount())*100/100));
 
         holder.lplus.setOnClickListener(new View.OnClickListener()

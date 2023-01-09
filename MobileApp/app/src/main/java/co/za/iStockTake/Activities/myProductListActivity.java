@@ -81,7 +81,7 @@ public class myProductListActivity extends AppCompatActivity
         double vat = 0.15;
 
         double tax = Math.round((managementList.getTotalCost()*vat)*100/100);
-        txtTax.setText(String.valueOf(tax));
+        txtTax.setText("R "+String.valueOf(tax));
         double total= Math.round((managementList.getTotalCost()*100)/100);
         txtTotal.setText("R "+total);
     }
