@@ -38,7 +38,7 @@ public class productViewActivity extends AppCompatActivity
      * ------------Recycler view Use Related Products Adapter
      * relatedProductsRV - recycler view of related products
      */
-    ImageView imageView;
+    ImageView imageView, home_, logout_, specials_, trending_;
     TextView txtProductName, txtProductSellPrice, txtProductStoreName, txtProductDescription, txtProductCategory,
             btnMinus, btnAdd, productCount, addtolist;
 
@@ -114,6 +114,13 @@ public class productViewActivity extends AppCompatActivity
         addtolist = findViewById(R.id.addToMyList);
         relatedProducts = findViewById(R.id.relatedProductsRV);
         productCount = findViewById(R.id.productCount);
+
+        home_ = findViewById(R.id.home);
+        trending_ = findViewById(R.id.trending);
+        specials_ = findViewById(R.id.sale);
+        logout_ = findViewById(R.id.logout);
+
+
     }
 
     private void bottomNavigation()
@@ -130,13 +137,37 @@ public class productViewActivity extends AppCompatActivity
             }
         });
 
-        home.setOnClickListener(new View.OnClickListener() {
+        home_.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent( productViewActivity.this, homeActivity.class));
+            public void onClick(View v) {
+                //do nothing
+                //Toast.makeText(productViewActivity.this,"Already here!.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(productViewActivity.this, homeActivity.class));
             }
         });
+
+        trending_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(productViewActivity.this,"View trending items", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        specials_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(productViewActivity.this,"Specials.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        logout_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(productViewActivity.this,"Away!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     //get data from previous activity, set data;

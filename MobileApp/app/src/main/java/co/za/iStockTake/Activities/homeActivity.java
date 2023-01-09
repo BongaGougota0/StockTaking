@@ -123,6 +123,23 @@ public class homeActivity extends AppCompatActivity
         recyclerViewCategories = findViewById(R.id.categoriesRecycler);
         recyclerViewTrending = findViewById(R.id.trendingRecycler);
         featuredStores = findViewById(R.id.featuredStoresRecycler);
+    }
+
+    private void bottomNavigation()
+    {
+        FloatingActionButton fap = (FloatingActionButton) findViewById(R.id.myList);
+        LinearLayout home = findViewById(R.id.btnLayout);
+        //ImageView home_ = findViewById(R.id.home);
+
+
+        fap.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(homeActivity.this, myProductListActivity.class));
+            }
+        });
 
         home_ = findViewById(R.id.home);
         trending_ = findViewById(R.id.trending);
@@ -155,31 +172,6 @@ public class homeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Toast.makeText(homeActivity.this,"Away!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void bottomNavigation()
-    {
-        FloatingActionButton fap = (FloatingActionButton) findViewById(R.id.myList);
-        LinearLayout home = findViewById(R.id.btnLayout);
-        //ImageView home_ = findViewById(R.id.home);
-
-
-        fap.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(homeActivity.this, myProductListActivity.class));
-            }
-        });
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(homeActivity.this, homeActivity.class));
             }
         });
     }

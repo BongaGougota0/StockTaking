@@ -3,6 +3,7 @@ package co.za.iStockTake.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -38,6 +39,8 @@ public class myProductListActivity extends AppCompatActivity
     RecyclerView recyclerView;
     TextView txtTax, txtTotal;
     ManagementList managementList;
+
+    ImageView home_, logout_, specials_, trending_;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -87,6 +90,10 @@ public class myProductListActivity extends AppCompatActivity
     {
         FloatingActionButton fap = findViewById(R.id.myList);
         LinearLayout home = findViewById(R.id.btnLayout);
+        home_ = findViewById(R.id.home);
+        trending_ = findViewById(R.id.trending);
+        specials_ = findViewById(R.id.sale);
+        logout_ = findViewById(R.id.logout);
 
         fap.setOnClickListener(new View.OnClickListener()
         {
@@ -103,6 +110,27 @@ public class myProductListActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 startActivity(new Intent(myProductListActivity.this, homeActivity.class));
+            }
+        });
+
+        trending_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(myProductListActivity.this,"View trending items", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        specials_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(myProductListActivity.this,"Specials.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        logout_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(myProductListActivity.this,"Away!", Toast.LENGTH_SHORT).show();
             }
         });
     }
