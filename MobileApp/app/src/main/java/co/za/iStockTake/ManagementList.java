@@ -45,6 +45,7 @@ public class ManagementList
             products.add(product);
         }
         sharedPref.putListObject("ProductList", products);
+        //sharedPref.putObject("ProductList",products);
         Toast.makeText(context, "Product added to your list", Toast.LENGTH_SHORT).show();
     }
 
