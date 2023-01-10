@@ -85,11 +85,10 @@ public class myProductListActivity extends AppCompatActivity
     public void setSavelist()
     {
         okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
-        String json = new Gson().toJson(managementList.getList());
         RequestBody body = RequestBody.create(Constant.JSON,
                 new Gson().toJson(new DataContainer("10", managementList.getList())));
         //check
-        System.out.println("###Data to send to API"+json);
+        System.out.println("###Data to send to API"+body);
         Request request = new Request.Builder()
                 .url("http://localhost:5000/CreateList")
                 .post(body)
