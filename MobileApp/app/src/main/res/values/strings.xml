@@ -51,4 +51,6 @@
     <string name="product_price_view">Selling Price</string>
     <string name="price">Price</string>
 
+    <string name="add_list">Save List</string>
+
 </resources>

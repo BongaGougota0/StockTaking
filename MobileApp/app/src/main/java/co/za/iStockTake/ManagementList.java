@@ -28,7 +28,8 @@ public class ManagementList
 
         for(int i = 0; i < products.size(); i++)
         {
-            if(products.get(i).getProductName().equals(product.getProductName()))
+            if(products.get(i).getProductName().equals(product.getProductName())
+                    && products.get(i).getProductPrice()== product.getProductPrice())
             {
                 alreadyExist = true;
                 n=i;

@@ -70,11 +70,11 @@ public class homeActivity extends AppCompatActivity
 
         String str = "R.drawable.asian_coconut_40_ml";
         //demo data- testing
-        trendingProducts.add(new Product("milk",50, "milk","this is milk"));
-        trendingProducts.add(new Product("milk",5, "milk","this is milk"));
-        trendingProducts.add(new Product("milk",10, "milk","this is milk"));
-        trendingProducts.add(new Product("milk",80, "milk","this is milk"));
-        trendingProducts.add(new Product("milk",35, "milk","this is milk"));
+        trendingProducts.add(new Product("milk 0",50, "milk","this is milk"));
+        trendingProducts.add(new Product("milk 1",5, "milk","this is milk"));
+        trendingProducts.add(new Product("milk 2",10, "milk","this is milk"));
+        trendingProducts.add(new Product("milk 3",80, "milk","this is milk"));
+        trendingProducts.add(new Product("milk 4",35, "milk","this is milk"));
 
         categories.add(new Category("cat 1", R.drawable.black_background));
         categories.add(new Category("Cereals", R.drawable.black_background));

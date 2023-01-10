@@ -96,6 +96,18 @@
 
             </LinearLayout>
 
+            <EditText
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/add_list"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"
+                android:background="@drawable/round_circle"
+                android:layout_height="30dp"
+                android:layout_width="match_parent"/>
+
         </LinearLayout>
 
     </ScrollView>
