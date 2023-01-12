@@ -21,7 +21,7 @@ def register_new_user():
 @app.route("/dashboard", methods=["GET","POST"])
 def dashboard_view():
     form = Registration()
-    return render_template('dashboard.html', title='dashboard', form=form)
+    return render_template('dashboard.html', title='Dashboard', form=form)
 
 
 '''----------------------------------App API End Points'''
