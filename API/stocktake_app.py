@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash
+from flask import Flask, render_template, url_for, flash, json
 from forms import Login, Registration
 
 app = Flask(__name__)
@@ -20,8 +20,8 @@ def register_new_user():
 
 @app.route("/dashboard", methods=["GET","POST"])
 def dashboard_view():
-    form = Registration()
-    return render_template('dashboard.html', title='Dashboard', form=form)
+    data_my = [11, 92, 45, 32, 34, 52, 41]
+    return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(data_my))
 
 
 '''----------------------------------App API End Points'''
