@@ -24,7 +24,7 @@ def register_new_user():
 
 @app.route("/dashboard", methods=["GET","POST"])
 def dashboard_view():
-    data_my = [11, 92, 45, 32, 34, 52, 41]
+    data_my = [40, 92, 45, 32, 34, 52, 41]
     return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(data_my))
 
 
