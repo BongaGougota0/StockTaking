@@ -5,9 +5,9 @@ Created on Fri Jan 13 02:54:21 2023
 @author: gmvn
 """
 from flask import Flask, render_template, url_for, flash, json, redirect
-from stocktake import app
-from stocktake.forms import Login, Registration
-from stocktake.models import User, List
+from stocktake_app import app
+from stocktake_app.forms import Login, Registration
+from stocktake_app.models import User, List
 
 '''--------------------------------Site Admin API End Points'''
 

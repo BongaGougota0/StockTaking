@@ -5,7 +5,7 @@ Created on Fri Jan 13 02:54:01 2023
 @author: gmvn
 """
 from datetime import datetime
-from stocktake import db
+from stocktake_app import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

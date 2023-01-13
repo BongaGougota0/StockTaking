@@ -18,4 +18,4 @@ db = SQLAlchemy(app)
 with app.app_context():
     db.create_all()
     
-from stocktake import routes
+from stocktake_app import routes
