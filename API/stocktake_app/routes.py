@@ -7,7 +7,7 @@ Created on Fri Jan 13 02:54:21 2023
 from flask import Flask, render_template, url_for, flash, json, redirect
 from stocktake_app import app
 from stocktake_app.forms import Login, Registration
-from stocktake_app.models import User, List
+from stocktake_app.models import User, List, Admin, Category, Product, Store
 
 '''--------------------------------Site Admin API End Points'''
 
