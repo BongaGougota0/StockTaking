@@ -31,7 +31,7 @@ class List(db.Model):
     def __repr__(self):
         return f"List('{self.items}', '{self.date_created}')"
 
-class StoreAdmin(db.Model):
+class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
@@ -47,7 +47,7 @@ class StoreAdmin(db.Model):
     image_file = db.Column(db.String(60), nullable=False, default='default.jpg')
 
     def __repr__(self):
-        return f"StoreAdmin('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"Admin('{self.username}', '{self.email}', '{self.image_file}')"
 
 class Store(db.Model):
     store_id = db.Column(db.Integer(), primary_key=True)
@@ -58,7 +58,7 @@ class Store(db.Model):
     store_contact = db.Column(db.String(60), nullable=False)
     store_logo = db.Column(db.String(60), nullable=False, default='default_store_logo.jpg')
 
-    user_id = db.Column(db.Integer, db.ForeignKey('storeadmin.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('admin.id'), nullable=False)
     #each store has many products 1-to-M
     products = db.relationship('Product', backref='store_prod', lazy=True)
 
@@ -91,7 +91,7 @@ class Category(db.Model):
 
     #A category can be created by any admin, and should be accessible by any other admin
     # one store --> Many products relationship 1-to-M
-    creator = db.Column(db.Integer, db.ForeignKey('storeadmin.id'), nullable=False)
+    creator = db.Column(db.Integer, db.ForeignKey('admin.id'), nullable=False)
 
     def __repr__(self):
         return f"Category('{self.category_name}', '{self.category_description}', '{self.img_category_product}')"
