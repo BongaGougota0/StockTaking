@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
 from stocktake_app.models import User
-from stocktake_app import bcrypts
+from stocktake_app import bcrypt
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
@@ -41,12 +41,6 @@ class Login(FlaskForm):
 	password = PasswordField('Password',validators=[DataRequired()])
 	loginButton = SubmitField('Login')
 
-	'''Verify loign details - Correctness.'''
-
-	def validate_username(self, username):
-		user = User.query.filter_by(username=username.data).first()
-		if user and :
-			raise ValidationError('Username not available, try another one.')
 
 
 class NewProduct(FlaskForm):
