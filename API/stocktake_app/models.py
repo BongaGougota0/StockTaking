@@ -21,6 +21,24 @@ class User(db.Model):
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+
+
+class UserAppModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(30), unique=True, nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    location = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(20), nullable=False)
+
+    #relationship between user and the lists they create
+    lists = db.relationship('List', backref='list_creator', lazy=True)
+
+    #hashing algorithm used 60 chars
+    image_file = db.Column(db.String(60), nullable=False, default='default.jpg')
+
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
         
 class List(db.Model):
     id = db.Column(db.Integer, primary_key=True)
