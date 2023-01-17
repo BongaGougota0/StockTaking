@@ -3,7 +3,7 @@ from flask_login import current_user
 from stocktake_app.models import User
 from stocktake_app import bcrypt
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, FileField
+from wtforms import StringField, PasswordField, SubmitField, FileField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
 '''Class for client registration'''
@@ -18,9 +18,9 @@ class Registration(FlaskForm):
 		validators=[DataRequired()])
 
 	confirm_password = PasswordField('Confirm Password',
-		validators=[DataRequired(), EqualTo(password)])
+		validators=[DataRequired(), EqualTo('password')])
 
-	submitButton = SubmitField("Sign Up")
+	register = SubmitField("Register")
 
 	'''Verify input details - they should not be already existing.'''
 
@@ -28,7 +28,8 @@ class Registration(FlaskForm):
 		user = User.query.filter_by(username=username.data).first()
 		if user:
 			raise ValidationError('Username not available, try another one.')
-			
+
+	
 	def validate_email(self, email):
 		user = User.query.filter_by(email=email.data).first()
 		if user:
@@ -39,7 +40,8 @@ class Registration(FlaskForm):
 class Login(FlaskForm):
 	email = StringField('Email', validators=[DataRequired(), Email()])
 	password = PasswordField('Password',validators=[DataRequired()])
-	loginButton = SubmitField('Login')
+	remember = BooleanField()
+	login = SubmitField('Login')
 
 
 

@@ -10,7 +10,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="{{ url_for('dashboard_view')}}" class="logo d-flex align-items-center w-auto">
+                <a href="{{ url_for('dashboard')}}" class="logo d-flex align-items-center w-auto">
                   <img src="{{ url_for('static', filename='img/logo.png') }}" alt="">
                   <span class="d-none d-lg-block">{{ title }}</span>
                 </a>
@@ -18,66 +18,106 @@
 
               <div class="card mb-3">
 
-                <div class="card-body">
+                  <div class="card-body">
+                      <form method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        <div class="pt-4 pb-2">
+                          <h5 class="card-title text-center pb-0 fs-4">{{ header }}</h5>
+                          <p class="text-center small">Enter your personal details to create account</p>
+                        </div>
 
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
+                        <div class="col-12">
+                          <label for="yourPassword">{{ form.name.label(class="form-control-label form-label") }}</label>
+                          <fieldset class="form-label input-group">
+                            {% if form.name.errors %}
+                              {{ form.name(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.name.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.name(class="form-control form-control-lg") }}
+                          {% endif %}
+                          </fieldset>
+                        </div>
+
+                        <div class="col-12">
+                          <label for="yourPassword">{{ form.email.label(class="form-control-label form-label") }}</label>
+                          <fieldset class="form-label input-group">
+                              {{ form.email(class="form-control form-control-lg") }}
+                          </fieldset>
+                        </div>
+
+                        <div class="col-12">
+                          <label for="yourUsername" class="form-label">{{ form.username.label(class="form-control-label form-label") }}</label>
+                          <div class="input-group has-validation">
+                            <fieldset class="form-label input-group">
+                              {% if form.username.errors %}
+                                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                              {% else %}
+                                  {{ form.username(class="form-control form-control-lg") }}
+                              {% endif %}
+                            </fieldset>
+                            
+                          </div>
+                        </div>
+
+                        <div class="col-12">
+                          <label for="yourPassword">{{ form.password.label(class="form-control-label form-label") }}</label>
+                          <fieldset class="form-label input-group">
+                            {% if form.password.errors %}
+                            {{ form.password(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.password.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                            {% else %}
+                                {{ form.password(class="form-control form-control-lg") }}
+                            {% endif %}
+                          </fieldset>
+                        </div>
+
+                        <div class="col-12">
+                          <label >{{ form.confirm_password.label(class="form-control-label form-label") }}</label>
+                          <fieldset class="form-label input-group">
+                            {% if form.confirm_password.errors %}
+                            {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.confirm_password.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                            {% else %}
+                                {{ form.confirm_password(class="form-control form-control-lg") }}
+                            {% endif %}
+                          </fieldset>
+                        </div>
+
+                        <div class="col-12">
+                          <div class="form-check">
+                            <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                            <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                            <div class="invalid-feedback">You must agree before submitting.</div>
+                          </div>
+                        </div>
+
+                        <div class="col12">
+                          <button class="btn btn-primary w-100" type="submit">{{ form.register(class="btn btn-primary w-100") }}</button>
+                        </div>
+
+                        <div class="col-12">
+                          <p class="small mb-0">Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-
-                  <div class="col-12">
-                    <label for="yourPassword">{{ form.name.label(class="form-control-label form-label") }}</label>
-                    <fieldset class="form-label input-group">
-                        {{ form.name(class="form-control form-control-lg") }}
-                    </fieldset>
-                  </div>
-
-                  <div class="col-12">
-                    <label for="yourPassword">{{ form.email.label(class="form-control-label form-label") }}</label>
-                    <fieldset class="form-label input-group">
-                        {{ form.email(class="form-control form-control-lg") }}
-                    </fieldset>
-                  </div>
-
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">{{ form.username.label(class="form-control-label form-label") }}</label>
-                      <div class="input-group has-validation">
-                        <fieldset class="form-label input-group">
-                          {{ form.username(class="form-control form-control-lg") }}
-                        </fieldset>
-                        <div class="invalid-feedback">Please choose a username.</div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword">{{ form.password.label(class="form-control-label form-label") }}</label>
-                      <fieldset class="form-label input-group">
-                          {{ form.password(class="form-control form-control-lg") }}
-                      </fieldset>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Confirm Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
-                    </div>
-                  </form>
-
                 </div>
               </div>
 

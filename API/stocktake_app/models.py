@@ -5,10 +5,17 @@ Created on Fri Jan 13 02:54:01 2023
 @author: gmvn
 """
 from datetime import datetime
-from stocktake_app import db
+from stocktake_app import db, login_manager
+from flask_login import UserMixin
 
-class User(db.Model):
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20), nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
@@ -23,7 +30,7 @@ class User(db.Model):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
 
-class UserAppModel(db.Model):
+class App(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
@@ -32,7 +39,7 @@ class UserAppModel(db.Model):
     password = db.Column(db.String(20), nullable=False)
 
     #relationship between user and the lists they create
-    lists = db.relationship('List', backref='list_creator', lazy=True)
+    #lists = db.relationship('List', backref='list_creator', lazy=True)
 
     #hashing algorithm used 60 chars
     image_file = db.Column(db.String(60), nullable=False, default='default.jpg')

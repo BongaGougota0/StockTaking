@@ -1,65 +1,83 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jan 13 02:54:21 2023
-
+Created on 
+Fri Jan 13 02:54:21 2023
 @author: gmvn
 """
 from flask import Flask, render_template, url_for, flash, json, redirect, jsonify, request
 from stocktake_app import app, bcrypt, db
-from flask_login import current_user, logout_user
+from flask_login import current_user, logout_user, login_user, login_required
 from stocktake_app.forms import Login, Registration, NewProduct
-from stocktake_app.models import User, List, Admin, Category, Product, Store, UserAppModel
-
-
+from stocktake_app.models import User, List, Admin, Category, Product, Store, App
 
 '''--------------------------------Site Admin API End Points'''
-
 @app.route("/login", methods=["GET","POST"])
 def login():
     # if current_user.is_authenticated:
-    #     return redirect( url_for(dashboard_view))
+    #     return redirect( url_for('dashboard_view'))
     form = Login()
-    if form.validate_on_submit:
+    if form.validate_on_submit():
         '''Verify login details - Correctness.'''
-        user = User.query.filter_by(username= form.username.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            flash(f"Login Succesfull!", 'success')
-            return redirect( url_for(dashboard_view))
+           # flash(f"Login Succesfull!", 'success')
+            login_user(user, remember=form.remember.data)
+           # next_page = request.args.get('next')
+           # return redirect(next_page) if next_page else redirect(url_for('dashboard') )
+            return redirect(url_for('dashboard') )
         else:
-            flash(f"Login Unsuccesfull, please check you details", 'danger')
-    return render_template('login.html', title='login', form=form)
-
+            flash('Login Unsuccesfull, please check you details', 'danger')
+    return render_template('login.html', title='Login', form=form)
 	
 @app.route("/register", methods=["GET", "POST"])
-def register_new_user():
+def register():
     # if current_user.is_authenticated:
-    #     return redirect( url_for(dashboard_view))
+    #     return redirect( url_for('dashboard_view'))
     form = Registration()
-    if form.validate_on_submit:
+    print('form object created')
+    if form.validate_on_submit():
+        print('make user')
         hash_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = Admin(username=form.username, email=form.email, password=hash_password)
+        user = User(name=form.name.data, username=form.username.data, email=form.email.data, password=hash_password)
         db.session.add(user)
         db.session.commit()
-        flash(f"Account created. Now Login")
-        return redirect( url_for(login))
-    return render_template('register.html', title='Register', form=form)
+        flash('Account created. Now Login', 'success')
+        print('Code Here')
+        return redirect( url_for('login'))
+    return render_template('register.html', header='Register', title='Create New Account', form=form)
+
+# @app.route("/register", methods=['GET', 'POST'])
+# def register():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('home'))
+#     form = Registration()
+#     if form.validate_on_submit():
+#         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+#         user = User(name=form.name.data, username=form.username.data, email=form.email.data, password=hashed_password)
+#         db.session.add(user)
+#         db.session.commit()
+#         flash('Your account has been created! You are now able to log in', 'success')
+#         return redirect(url_for('login'))
+#     return render_template('register.html', title='Register', form=form)
 
 @app.route("/dashboard", methods=["GET","POST"])
-def dashboard_view():
+def dashboard():
     data_my = [40, 92, 45, 32, 34, 52, 41]
     return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(data_my))
 
 @app.route("/new_product", methods=["GET","POST"])
 def add_product():
     form = NewProduct()
-    return render_template("new_product.html", form=form)
+    return render_template("new_product.html", title='New Product', form=form)
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    form = Login()
+    return render_template('logout.html', title='logout', form=form)
 
 
-
-
-
-
-'''----------------------------------Mobile Application API End Points --- Begin'''
+'''----------------------------------Mobile Application API End Points --- Begin
 
 @app.route("/app/createlist", methods=["Post"])
 def appSavelist():
@@ -85,8 +103,7 @@ def appLogin():
 
     username = data['username']
     password = data['password']
-    '''Verify login details - Correctness.'''
-    user = User.query.filter_by(username= username.data).first()
+    user = App.query.filter_by(username= username.data).first()
     if user and bcrypt.check_password_hash(user.password, password.data):
         return jsonify({'Message':'Login Success', 'Status':'Success'})
     else:
@@ -103,16 +120,16 @@ def appRegister():
     password = data['password']
     hashpassword = bcrypt.generate_password_hash(password=password.data).decode('utf-8')
 
-    user = UserAppModel.query.filter_by(username=username.data).first()
+    user = App.query.filter_by(username=username.data).first()
     if user:
         return jsonify({'Message':"Username already takekn.",'Status':'Unsuccesful'})
     else:
-        em = UserAppModel.query.filter_by(email=email.data).first()
+        em = App.query.filter_by(email=email.data).first()
         if em:
             mssg = validate_email(em.email)
             return jsonify({'Message':mssg,'Status':'Unsuccesful'})
         else:
-            user = UserAppModel(name=name.data, email=email.data, username=username.data,
+            user = App(name=name.data, email=email.data, username=username.data,
              location=location.data, password=hashpassword)
 
         db.session.add(user)
@@ -120,14 +137,14 @@ def appRegister():
         return jsonify({'Message':'User account created.', 'Status':'Success'})
 
 def validate_username(username):
-            user = User.query.filter_by(username=username.data).first()
+            user = App.query.filter_by(username=username.data).first()
             if user:
                 return False
             else:
                 return True
 
 def validate_email(email):
-            user = User.query.filter_by(email=email.data).first()
+            user = App.query.filter_by(email=email.data).first()
             if user:
                 return False
             else:
@@ -143,13 +160,13 @@ def appUpdate():
     location = data['location']
     password = data['password']
 
-    user = UserAppModel.query.filter_by(username=username.data)
+    user = App.query.filter_by(username=username.data)
 
     if user.username != username.data and validate_username(username.data):
         #username available, continue ...
         if user.email != email.data and validate_email(email.data):
             #continue email not used before...
-            updateuser = UserAppModel(name=name.data, email=email.data,username=username.data,
+            updateuser = App(name=name.data, email=email.data,username=username.data,
             location=location.data,password=password.data)
             db.session.add(updateuser)
             db.session.commit()
@@ -158,6 +175,4 @@ def appUpdate():
     else:
         return jsonify({'Message':'Username already exists', 'Status':'Unsuccesful'})
 
-    
-
-'''----------------------------------Mobile Application API End Points --- End'''
+----------------------------------Mobile Application API End Points --- End'''
