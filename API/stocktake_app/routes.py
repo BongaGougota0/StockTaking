@@ -16,8 +16,8 @@ from stocktake_app.models import User, List, Admin, Category, Product, Store, Us
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-    if current_user.is_authenticated:
-        return redirect( url_for(dashboard_view))
+    # if current_user.is_authenticated:
+    #     return redirect( url_for(dashboard_view))
     form = Login()
     if form.validate_on_submit:
         '''Verify login details - Correctness.'''
@@ -32,8 +32,8 @@ def login():
 	
 @app.route("/register", methods=["GET", "POST"])
 def register_new_user():
-    if current_user.is_authenticated:
-        return redirect( url_for(dashboard_view))
+    # if current_user.is_authenticated:
+    #     return redirect( url_for(dashboard_view))
     form = Registration()
     if form.validate_on_submit:
         hash_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -47,8 +47,7 @@ def register_new_user():
 @app.route("/dashboard", methods=["GET","POST"])
 def dashboard_view():
     data_my = [40, 92, 45, 32, 34, 52, 41]
-    return render_template('dashboard.html', 
-    title='Dashboard', my_data = json.dumps(data_my))
+    return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(data_my))
 
 @app.route("/new_product", methods=["GET","POST"])
 def add_product():
