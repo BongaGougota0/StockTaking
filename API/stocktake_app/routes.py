@@ -11,6 +11,38 @@ from stocktake_app.forms import Login, Registration, NewProduct
 from stocktake_app.models import User, List, Admin, Category, Product, Store, App
 
 '''--------------------------------Site Admin API End Points'''
+
+@app.route("/")
+@app.route("/home", methods=["GET"])
+def home():
+    form=Login()
+    return render_template('home.html', title='home', form=form)
+
+
+@app.route("/myaccout", methods=["GET", "POST"])
+def myaccount():
+    return render_template('myaccout.html', title='My Account')
+
+
+@app.route("/dashboard", methods=["GET","POST"])
+def dashboard():
+    data_my = [40, 92, 45, 32, 34, 52, 41]
+    return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(data_my))
+
+
+@app.route("/add_product", methods=["GET","POST"])
+def add_product():
+    form = NewProduct()
+    return render_template("new_product.html", title='New Product', form=form)
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    form = Login()
+    return render_template('logout.html', title='logout', form=form)
+
+
 @app.route("/login", methods=["GET","POST"])
 def login():
     # if current_user.is_authenticated:
@@ -29,6 +61,7 @@ def login():
             flash('Login Unsuccesfull, please check you details', 'danger')
     return render_template('login.html', title='Login', form=form)
 	
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     # if current_user.is_authenticated:
@@ -42,40 +75,18 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Account created. Now Login', 'success')
-        print('Code Here')
         return redirect( url_for('login'))
     return render_template('register.html', header='Register', title='Create New Account', form=form)
 
-# @app.route("/register", methods=['GET', 'POST'])
-# def register():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('home'))
-#     form = Registration()
-#     if form.validate_on_submit():
-#         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-#         user = User(name=form.name.data, username=form.username.data, email=form.email.data, password=hashed_password)
-#         db.session.add(user)
-#         db.session.commit()
-#         flash('Your account has been created! You are now able to log in', 'success')
-#         return redirect(url_for('login'))
-#     return render_template('register.html', title='Register', form=form)
 
-@app.route("/dashboard", methods=["GET","POST"])
-def dashboard():
-    data_my = [40, 92, 45, 32, 34, 52, 41]
-    return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(data_my))
+@app.route("editproduct", methods=["GET", "POST"])
+def editproduct():
+    return render_template('editproduct.html', title='Edit Product')
 
-@app.route("/new_product", methods=["GET","POST"])
-def add_product():
-    form = NewProduct()
-    return render_template("new_product.html", title='New Product', form=form)
 
-@app.route("/logout")
-def logout():
-    logout_user()
-    form = Login()
-    return render_template('logout.html', title='logout', form=form)
-
+@app.route('createcategory', methods=["GET", "POST"])
+def createcategory():
+    return render_template('createcategory.html', title='Create Categoryy')
 
 '''----------------------------------Mobile Application API End Points --- Begin
 
