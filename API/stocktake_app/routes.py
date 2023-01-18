@@ -7,31 +7,30 @@ Fri Jan 13 02:54:21 2023
 from flask import Flask, render_template, url_for, flash, json, redirect, jsonify, request
 from stocktake_app import app, bcrypt, db
 from flask_login import current_user, logout_user, login_user, login_required
-from stocktake_app.forms import Login, Registration, NewProduct
+from stocktake_app.forms import Login, Registration, NewProduct, EditProfileForm, EditProductForm
 from stocktake_app.models import User, List, Admin, Category, Product, Store, App
 
 '''--------------------------------Site Admin API End Points'''
 
-@app.route("/")
-@app.route("/home", methods=["GET"])
-def home():
-    form=Login()
-    return render_template('home.html', title='home', form=form)
-
-
-@app.route("/myaccout", methods=["GET", "POST"])
-def myaccount():
-    return render_template('myaccout.html', title='My Account')
+@app.route("/my_account", methods=["GET", "POST"])
+def my_account():
+    form = EditProfileForm()
+    return render_template('my_account.html', title='My Account', form=form)
 
 
 @app.route("/dashboard", methods=["GET","POST"])
 def dashboard():
-    data_my = [40, 92, 45, 32, 34, 52, 41]
-    return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(data_my))
+
+    my_dict1 = {'name':'Sales', 'data':[3, 6, 21, 15, 9, 18, 8]}
+    my_dict2 = {'name':'Customers', 'data':[33, 6, 39, 15, 9, 16, 46]}
+    my_dict3 = {'name':'Revanue', 'data':[13, 61, 19, 37, 29, 8, 9]}
+    set_ = [my_dict1, my_dict2, my_dict3]
+
+    return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(set_))
 
 
-@app.route("/add_product", methods=["GET","POST"])
-def add_product():
+@app.route("/new_product", methods=["GET","POST"])
+def new_product():
     form = NewProduct()
     return render_template("new_product.html", title='New Product', form=form)
 
@@ -39,10 +38,9 @@ def add_product():
 @app.route("/logout")
 def logout():
     logout_user()
-    form = Login()
-    return render_template('logout.html', title='logout', form=form)
+    return redirect( url_for('login') )
 
-
+@app.route("/", methods=["GET","POST"])
 @app.route("/login", methods=["GET","POST"])
 def login():
     # if current_user.is_authenticated:
@@ -79,13 +77,14 @@ def register():
     return render_template('register.html', header='Register', title='Create New Account', form=form)
 
 
-@app.route("editproduct", methods=["GET", "POST"])
-def editproduct():
-    return render_template('editproduct.html', title='Edit Product')
+@app.route("/edit_product", methods=["GET", "POST"])
+def edit_product():
+    form = EditProductForm()
+    return render_template('editproduct.html', title='Edit Product', form=form)
 
 
-@app.route('createcategory', methods=["GET", "POST"])
-def createcategory():
+@app.route('/create_category', methods=["GET", "POST"])
+def create_category():
     return render_template('createcategory.html', title='Create Categoryy')
 
 '''----------------------------------Mobile Application API End Points --- Begin
