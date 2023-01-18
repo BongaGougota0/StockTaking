@@ -4,9 +4,9 @@ Created on
 Fri Jan 13 02:54:21 2023
 @author: gmvn
 """
-from flask import Flask, render_template, url_for, flash, json, redirect, jsonify, request
-from stocktake_app import app, bcrypt, db
+from flask import Flask, render_template, url_for, flash, json, redirect, jsonify, request, abort
 from flask_login import current_user, logout_user, login_user, login_required
+from stocktake_app import db, app, bcrypt
 from stocktake_app.forms import Login, Registration, NewProduct, EditProfileForm, EditProductForm
 from stocktake_app.models import User, List, Admin, Category, Product, Store, App
 
@@ -16,7 +16,23 @@ from stocktake_app.models import User, List, Admin, Category, Product, Store, Ap
 @login_required
 def my_account():
     form = EditProfileForm()
-    return render_template('my_account.html', title='My Account', form=form)
+
+    if form.validate_on_submit():
+        if form.username != current_user.username and form.email != current_user.email:
+            if form.picture.data:
+                picture_file = save_image(form.picture.data)
+                current_user.image_file = picture_file
+            current_user.username = form.username.data
+            current_user.email = form.email.data
+            db.session.commit()
+            flash('Successfully Update Account!', 'success')
+            return redirect(url_for('my_account'))
+        elif request.method == 'GET':
+            form.name = current_user.name
+            form.username = current_user.username
+            form.email = current_user.email
+    image_file = url_for('static', filename='img/' + current_user.image_file)
+    return render_template('my_account.html', title='My Account', form=form, image_file=image_file)
 
 
 @app.route("/dashboard", methods=["GET","POST"])
@@ -47,7 +63,7 @@ def logout():
 @app.route("/login", methods=["GET","POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect( url_for('dashboard_view'))
+        return redirect( url_for('dashboard'))
     form = Login()
     if form.validate_on_submit():
         '''Verify login details - Correctness.'''
@@ -91,7 +107,24 @@ def edit_product():
 @app.route('/create_category', methods=["GET", "POST"])
 @login_required
 def create_category():
-    return render_template('createcategory.html', title='Create Category')
+    return render_template('create_category.html', title='Create Category')
+
+import os, secrets
+from PIL import Image
+def save_image(picture_data):
+    rand_name = secrets.token_hex(10)
+    _, ext = os.path.splitext(picture_data.filename)
+    new_filename = rand_name + ext
+    file_path = os.path.join(app.root_path, 'static/img/' + new_filename)
+
+    '''resize image here'''
+    output_size = (200, 200) # method used by diff. call this will vary
+    i = Image.open(picture_data)
+    i.thumbnail(output_size)
+    i.save(file_path)
+
+    return new_filename
+
 
 '''----------------------------------Mobile Application API End Points --- Begin
 

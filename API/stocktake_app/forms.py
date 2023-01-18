@@ -40,13 +40,26 @@ class EditProfileForm(FlaskForm):
 	position = StringField("Job Post")
 	location = StringField('Location')
 	phone = StringField('Phone')
-	Address = StringField('Address')
-	twitter = StringField('Twitter Profile')
-	facebook = StringField('Facebook Profile')
-	linkedIn = StringField('LinkedIn Profile')
+	address = StringField('Address')
+	email = StringField("Email")
+	username = StringField("Username")
+	picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+	name = StringField("Name")
+	text = TextAreaField("About Store")
 
 	save_changes = SubmitField('Save Changes')
-	change_password = SubmitField('Change Password')
+
+	#verify changes before pushing to database
+	def validate_username(self, username):
+		user = User.query.filter_by(username=username.data).first()
+		if user:
+			raise ValidationError('Username taken, try another one.')
+
+	
+	def validate_email(self, email):
+		user = User.query.filter_by(email=email.data).first()
+		if user:
+			raise ValidationError('Email already in use, try another email')
 
 
 
