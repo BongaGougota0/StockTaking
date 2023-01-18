@@ -13,12 +13,14 @@ from stocktake_app.models import User, List, Admin, Category, Product, Store, Ap
 '''--------------------------------Site Admin API End Points'''
 
 @app.route("/my_account", methods=["GET", "POST"])
+@login_required
 def my_account():
     form = EditProfileForm()
     return render_template('my_account.html', title='My Account', form=form)
 
 
 @app.route("/dashboard", methods=["GET","POST"])
+@login_required
 def dashboard():
 
     my_dict1 = {'name':'Sales', 'data':[3, 6, 21, 15, 9, 18, 8]}
@@ -30,6 +32,7 @@ def dashboard():
 
 
 @app.route("/new_product", methods=["GET","POST"])
+@login_required
 def new_product():
     form = NewProduct()
     return render_template("new_product.html", title='New Product', form=form)
@@ -43,18 +46,19 @@ def logout():
 @app.route("/", methods=["GET","POST"])
 @app.route("/login", methods=["GET","POST"])
 def login():
-    # if current_user.is_authenticated:
-    #     return redirect( url_for('dashboard_view'))
+    if current_user.is_authenticated:
+        return redirect( url_for('dashboard_view'))
     form = Login()
     if form.validate_on_submit():
         '''Verify login details - Correctness.'''
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-           # flash(f"Login Succesfull!", 'success')
+            flash(f"Login Succesfull!", 'success')
             login_user(user, remember=form.remember.data)
-           # next_page = request.args.get('next')
-           # return redirect(next_page) if next_page else redirect(url_for('dashboard') )
-            return redirect(url_for('dashboard') )
+            next_page = request.args.get('next')
+            # Authorise user to continue to the intended
+            #  page else goto default page after login
+            return redirect(next_page) if next_page else redirect(url_for('dashboard') )
         else:
             flash('Login Unsuccesfull, please check you details', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -62,8 +66,8 @@ def login():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    # if current_user.is_authenticated:
-    #     return redirect( url_for('dashboard_view'))
+    if current_user.is_authenticated:
+        return redirect( url_for('dashboard_view'))
     form = Registration()
     print('form object created')
     if form.validate_on_submit():
@@ -78,14 +82,16 @@ def register():
 
 
 @app.route("/edit_product", methods=["GET", "POST"])
+@login_required
 def edit_product():
     form = EditProductForm()
-    return render_template('editproduct.html', title='Edit Product', form=form)
+    return render_template('edit_product.html', title='Edit Product', form=form)
 
 
 @app.route('/create_category', methods=["GET", "POST"])
+@login_required
 def create_category():
-    return render_template('createcategory.html', title='Create Categoryy')
+    return render_template('createcategory.html', title='Create Category')
 
 '''----------------------------------Mobile Application API End Points --- Begin
 
