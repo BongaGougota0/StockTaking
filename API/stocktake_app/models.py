@@ -15,8 +15,11 @@ def load_user(id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(20), nullable=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
+    location = db.Column(db.String(30), nullable=True)
+    address = db.Column(db.String(30), nullable=True)
+    contact = db.Column(db.String(30), nullable=True)
     email = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
 
@@ -32,10 +35,10 @@ class User(db.Model, UserMixin):
 
 class App(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), nullable=False)
+    name = db.Column(db.String(30))
     email = db.Column(db.String(30), unique=True, nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    location = db.Column(db.String(30), nullable=False)
+    location = db.Column(db.String(30))
     password = db.Column(db.String(20), nullable=False)
 
     #relationship between user and the lists they create
@@ -60,11 +63,13 @@ class List(db.Model):
     def __repr__(self):
         return f"List('{self.items}', '{self.date_created}')"
 
-class Admin(db.Model):
+
+class Admin(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
-    password = db.Column(db.String(20), unique=True, nullable=False)
+    password = db.Column(db.String(20), nullable=False)
 
     #relationship between user and the lists they create
     stores = db.relationship('Store', backref='store_admin', lazy=True)
@@ -80,7 +85,7 @@ class Admin(db.Model):
         return f"Admin('{self.username}', '{self.email}', '{self.image_file}')"
 
 class Store(db.Model):
-    store_id = db.Column(db.Integer(), primary_key=True)
+    store_id = db.Column(db.Integer, primary_key=True)
     store_name = db.Column(db.String(30), unique=True, nullable=False)
     store_location = db.Column(db.String(50), nullable=False)
     store_description = db.Column(db.String(100))
@@ -97,11 +102,11 @@ class Store(db.Model):
         return f"Store('{self.store_name}', '{self.store_location}', '{self.store_description}','{self.store_email}','{self.store_contact}', '{self.store_logo}')"
 
 class Product(db.Model):
-    product_id = db.Column(db.Integer(), primary_key=True)
+    product_id = db.Column(db.Integer, primary_key=True)
     product_name = db.Column(db.String(30), unique=True, nullable=False)
     product_description = db.Column(db.String(100))
     product_category = db.Column(db.String(30), nullable=False)
-    product_price = db.Column(db.Integer(), nullable=False)
+    product_price = db.Column(db.Integer, nullable=False)
     product_store = db.Column(db.String(30), nullable=False)
     img_product = db.Column(db.String(60), nullable=False, default='default_product.jpg')
 
@@ -117,7 +122,7 @@ class Product(db.Model):
 
 
 class Category(db.Model):
-    category_id = db.Column(db.Integer(), primary_key=True)
+    category_id = db.Column(db.Integer, primary_key=True)
     category_name = db.Column(db.String(30), unique=True, nullable=False)
     category_description = db.Column(db.String(30))
     img_category_product = db.Column(db.String(60), nullable=False, default='default_icon.jpg')

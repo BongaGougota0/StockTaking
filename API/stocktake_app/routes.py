@@ -66,7 +66,7 @@ def login():
     form = Login()
     if form.validate_on_submit():
         '''Verify login details - Correctness.'''
-        user = User.query.filter_by(email=form.email.data).first()
+        user = Admin.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             flash(f"Login Succesfull!", 'success')
             login_user(user, remember=form.remember.data)

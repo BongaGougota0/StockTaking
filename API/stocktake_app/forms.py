@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from stocktake_app.models import User
+from stocktake_app.models import User, Admin
 from stocktake_app import bcrypt
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, FileField, BooleanField, TextAreaField
@@ -36,8 +36,6 @@ class Registration(FlaskForm):
 			raise ValidationError('Email already in user, try with another email')
 
 class EditProfileForm(FlaskForm):
-	about = TextAreaField("About My Store")
-	position = StringField("Job Post")
 	location = StringField('Location')
 	phone = StringField('Phone')
 	address = StringField('Address')
@@ -45,21 +43,26 @@ class EditProfileForm(FlaskForm):
 	username = StringField("Username", validators=[DataRequired()])
 	picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 	name = StringField("Name")
-	text = TextAreaField("About Store")
+	text = TextAreaField("About")
+
+	# Change password fields
+	current_psswd = PasswordField("Current Password", validators=[DataRequired()])
+	new_psswd = PasswordField("Current Password", validators=[DataRequired()])
+	conf_psswd = PasswordField("Current Password", validators=[DataRequired(), EqualTo(new_psswd)])
 
 	save_changes = SubmitField('Save Changes')
+	change_password = SubmitField('Change Password')
 
 	#verify changes before pushing to database
 	def validate_username(self, username):
 		if username.data != current_user.username:
-			user = User.query.filter_by(username=username.data).first()
+			user = Admin.query.filter_by(username=username.data).first()
 			if user:
 				raise ValidationError('Username taken, try another one.')
-
 	
 	def validate_email(self, email):
 		if email.data != current_user.email:
-			user = User.query.filter_by(email=email.data).first()
+			user = Admin.query.filter_by(email=email.data).first()
 			if user:
 				raise ValidationError('Username taken, try another one.')
 
@@ -88,7 +91,7 @@ class NewProduct(FlaskForm):
 
 class EditProductForm(FlaskForm):
 	product_name = StringField('Product Name', validators=[DataRequired()])
-	product_description = StringField('Your Full Name', validators=[DataRequired()])
+	product_description = StringField('About Product', validators=[DataRequired()])
 	product_category = StringField('Product Category', validators=[DataRequired()])
 	product_price = StringField('Price', validators=[DataRequired(), Email()])
 	product_quantity = StringField('In Stock', validators=[DataRequired()])
