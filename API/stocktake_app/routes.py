@@ -18,19 +18,18 @@ def my_account():
     form = EditProfileForm()
 
     if form.validate_on_submit():
-        if form.username != current_user.username and form.email != current_user.email:
-            if form.picture.data:
-                picture_file = save_image(form.picture.data)
-                current_user.image_file = picture_file
-            current_user.username = form.username.data
-            current_user.email = form.email.data
-            db.session.commit()
-            flash('Successfully Update Account!', 'success')
-            return redirect(url_for('my_account'))
-        elif request.method == 'GET':
-            form.name = current_user.name
-            form.username = current_user.username
-            form.email = current_user.email
+        if form.picture.data:
+            picture_file = save_image(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Successfully Update Account!', 'success')
+        return redirect(url_for('my_account'))
+    elif request.method == 'GET':
+        form.name.data = current_user.name
+        form.username.data = current_user.username
+        form.email.data = current_user.email
     image_file = url_for('static', filename='img/' + current_user.image_file)
     return render_template('my_account.html', title='My Account', form=form, image_file=image_file)
 
