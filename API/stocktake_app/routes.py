@@ -12,6 +12,37 @@ from stocktake_app.models import User, List, Admin, Category, Product, Store, Ap
 
 '''--------------------------------Site Admin API End Points'''
 
+# @app.route("/my_account", methods=["GET", "POST"])
+# @login_required
+# def my_account():
+#     form = EditProfileForm()
+#     if form.validate_on_submit():
+#         if form.picture.data:
+#             picture_file = save_image(form.picture.data)
+#             current_user.image_file = picture_file
+#         current_user.name = form.name.data
+#         current_user.about = form.about.data
+#         current_user.username = form.username.data
+#         current_user.address = form.address.data
+#         current_user.contact = form.contact.data
+#         current_user.email = form.email.data
+#         current_user.location = form.location.data
+#         db.session.commit()
+#         flash('Successfully Update Account!', 'success')
+#         return redirect(url_for('my_account'))
+#     elif request.method == 'GET':
+#         form.name.data = current_user.name
+#         form.username.data = current_user.username
+#         form.email.data = current_user.email
+#         form.location.data = current_user.location
+#         form.address.data = current_user.address
+#         form.contact.data = current_user.contact
+#         form.about.data = current_user.about
+#     image_file = url_for('static', filename='img/' + current_user.image_file)
+#     return render_template('my_account.html', title='My Account', form=form, image_file=image_file)
+
+
+
 @app.route("/my_account", methods=["GET", "POST"])
 @login_required
 def my_account():
@@ -21,14 +52,16 @@ def my_account():
             picture_file = save_image(form.picture.data)
             current_user.image_file = picture_file
         current_user.name = form.name.data
-        current_user.about = form.about.data
         current_user.username = form.username.data
+        current_user.email = form.email.data
+        current_user.password = current_user.password
         current_user.address = form.address.data
         current_user.contact = form.contact.data
-        current_user.email = form.email.data
         current_user.location = form.location.data
+        current_user.about = form.about.data
         db.session.commit()
-        flash('Successfully Update Account!', 'success')
+
+        flash('Your account has been updated!', 'success')
         return redirect(url_for('my_account'))
     elif request.method == 'GET':
         form.name.data = current_user.name
@@ -38,8 +71,7 @@ def my_account():
         form.address.data = current_user.address
         form.contact.data = current_user.contact
         form.about.data = current_user.about
-    image_file = url_for('static', filename='img/' + current_user.image_file)
-    return render_template('my_account.html', title='My Account', form=form, image_file=image_file)
+    return render_template('my_account.html', title='Account',form=form)
     
 
 

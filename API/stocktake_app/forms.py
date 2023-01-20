@@ -41,7 +41,7 @@ class EditProfileForm(FlaskForm):
 	address = StringField('Address')
 	email = StringField("Email", validators=[DataRequired()])
 	username = StringField("Username", validators=[DataRequired()])
-	picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+	picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpeg', 'png', 'jpg'])])
 	name = StringField("Name")
 	about = TextAreaField("About Store")
 

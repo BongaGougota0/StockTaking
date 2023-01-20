@@ -28,7 +28,7 @@
                   </li><!-- End Search Icon-->
 
                   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                      <img src="{{ url_for('static', filename='img/' + current_user.image_file) }}" alt="Profile" class="rounded-circle">
+                      <img src="{{ url_for('static', filename='img/'+current_user.image_file) }}" alt="Profile" class="rounded-circle">
                       <span class="d-none d-md-block dropdown-toggle ps-2">{{ current_user.username }}</span>
                   </a><!-- End Profile Iamge Icon -->
 
@@ -41,89 +41,82 @@
       <aside id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav" id="sidebar-nav">
-
+  
         <li class="nav-item">
-            <a class="nav-link " href="{{ url_for('dashboard') }}">
+            <a class="nav-link " href="index.html">
             <i class="bi bi-grid"></i>
             <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
-
+  
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-layout-text-window-reverse"></i><span>Store Management</span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="tables-general.html">
-                    <i class="bi bi-circle"></i><span>Sale Records</span>
-                    </a>
-                </li>
-            </ul>
-            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="tables-general.html">
-                    <i class="bi bi-circle"></i><span>Store Categories</span>
-                    </a>
-                </li>
-            </ul>
-            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="tables-general.html">
-                    <i class="bi bi-circle"></i><span>Store Products</span>
+                    <i class="bi bi-circle"></i><span>General Tables</span>
                     </a>
                 </li>
             </ul>
         </li><!-- End Tables Nav -->
-
-
+  
+  
         <li class="nav-heading">Pages</li>
-
+  
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ url_for('my_account')}}">
             <i class="bi bi-person"></i>
             <span>Profile</span>
             </a>
         </li><!-- End Profile Page Nav -->
-
+  
         <li class="nav-item">
             <a class="nav-link collapsed" href="pages-faq.html">
             <i class="bi bi-question-circle"></i>
             <span>F.A.Q</span>
             </a>
         </li><!-- End F.A.Q Page Nav -->
-
+  
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ url_for('new_product') }}">
             <i class="bi bi-envelope"></i>
             <span>Add New Product</span>
             </a>
         </li><!-- End Add product Page Nav -->
-
+  
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ url_for('edit_product') }}">
             <i class="bi bi-card-list"></i>
             <span>Edit Existing Product</span>
             </a>
         </li><!-- End Register Page Nav -->
-
+  
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ url_for('new_store') }}">
-            <i class="bi bi-card-list"></i>
-            <span>Create Your Store</span>
+            <a class="nav-link collapsed" href="pages-error-404.html">
+            <i class="bi bi-dash-circle"></i>
+            <span>Error 404</span>
             </a>
-        </li><!-- End Register Page Nav -->
-
+        </li><!-- End Error 404 Page Nav -->
+  
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="pages-blank.html">
+            <i class="bi bi-file-earmark"></i>
+            <span>Blank</span>
+            </a>
+        </li><!-- End Blank Page Nav -->
+  
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ url_for('logout') }}">
             <i class="bi bi-box-arrow-in-right"></i>
             <span>Log Out</span>
             </a>
         </li><!-- End Login Page Nav -->
-
+  
         </ul>
-
-    </aside><!-- End Sidebar-->
+  
+      </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
@@ -145,9 +138,9 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="{{ url_for('static', filename='img/' + current_user.image_file) }}" alt="Profile" class="rounded-circle">
-              <h2>{{ current_user.name }}</h2>
-              <h3>Web Designer</h3>
+              <img src="{{ url_for('static', filename='img/'+current_user.image_file) }}" alt="Profile" class="rounded-circle">
+              <h2>{{  current_user.name }}</h2>
+              <h3>{{  current_user.email }}</h3>
               <div class="social-links mt-2">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -166,9 +159,9 @@
               <!-- Bordered Tabs -->
               <ul class="nav nav-tabs nav-tabs-bordered">
 
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                   <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                </li> -->
+                </li>
 
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
@@ -185,186 +178,197 @@
               </ul>
               <div class="tab-content pt-2">
 
-                <!-- <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">About Store</h5>
-                  <p class="small fst-italic">{{ current_user.about }}</p>
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  <h5 class="card-title">About</h5>
+                  <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
 
                   <h5 class="card-title">Profile Details</h5>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8">{{ current_user.name }}</div>
+                    <div class="col-lg-9 col-md-8">Kevin Anderson</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Stores</div>
-                    <div class="col-lg-9 col-md-8">{{ current_user.stores }}</div>
+                    <div class="col-lg-3 col-md-4 label">Company</div>
+                    <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Location</div>
-                    <div class="col-lg-9 col-md-8">{{ current_user.location }}</div>
+                    <div class="col-lg-3 col-md-4 label">Job</div>
+                    <div class="col-lg-9 col-md-8">Web Designer</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Country</div>
+                    <div class="col-lg-9 col-md-8">USA</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Address</div>
-                    <div class="col-lg-9 col-md-8">{{ current_user.address }}</div>
+                    <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Contact</div>
-                    <div class="col-lg-9 col-md-8">{{ current_user.contact }}</div>
+                    <div class="col-lg-3 col-md-4 label">Phone</div>
+                    <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">{{ current_user.email }}</div>
+                    <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
                   </div>
 
-                </div> -->
+                </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form method="POST" action=""  enctype="multipart/form-data">
+                  <form method="POST" action="" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="{{ url_for('static', filename='img/' + current_user.image_file) }}" alt="Profile">
-                        <!--Upload image here-->
-                        <div class="pt-2">
-                          <!-- <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a> -->
+                        <img src="{{ url_for('static', filename='img/'+current_user.image_file) }}" alt="Profile">
+                      </div>
+                    </div>
 
-                          <!-- {{ form.picture.label() }} -->
-                            {{ form.picture(class="form-control-file btn-primary") }}
-                            {% if form.picture.errors %}
-                                {% for error in form.picture.errors %}
-                                    <span class="text-danger">{{ error }}</span></br>
+                    <div class="form-group">
+                      {{ form.picture.label() }}
+                      {{ form.picture(class="form-control-file") }}
+                      {% if form.picture.errors %}
+                          {% for error in form.picture.errors %}
+                              <span class="text-danger">{{ error }}</span></br>
+                          {% endfor %}
+                      {% endif %}
+                  </div>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.name.label(class="form-control-label") }}</label>
+
+                      <div class="form-group">
+                        
+                        {% if form.name.errors %}
+                            {{ form.name(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.name.errors %}
+                                    <span>{{ error }}</span>
                                 {% endfor %}
-                            {% endif %}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Name</label>
-                      <div class="col-md-8 col-lg-9">
-                            {% if form.name.errors %}
-                              {{ form.name(class="form-control form-control-lg is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.name.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                              {{ form.name(class="form-control") }}
-                            {% endif %}
+                            </div>
+                        {% else %}
+                            {{ form.name(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="about" class="col-md-4 col-lg-3 col-form-label">About Store</label>
-                      <div class="col-md-8 col-lg-9">
-                            {% if form.about.errors %}
-                              {{ form.about(class="form-control form-control-lg is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.about.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.about(class="form-control") }}
-                            {% endif %}
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.about.label(class="form-control-label") }}</label>
+
+                      <div class="form-group">
+                        
+                        {% if form.about.errors %}
+                            {{ form.about(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.about.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.about(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Location</label>
-                      <div class="col-md-8 col-lg-9">
-                              {% if form.location.errors %}
-                              {{ form.location(class="form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.location.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.location(class="form-control") }}
-                                <!-- <input name="email" type="email" class="form-control" id="Email"> -->
-                            {% endif %}
+                      <label class="col-md-4 col-lg-3 col-form-label">{{ form.location.label(class="form-control-label") }}</label>
+
+                      <div class="form-group">
+                        
+                        {% if form.location.errors %}
+                            {{ form.location(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.location.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.location(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="company" class="col-md-4 col-lg-3 col-form-label">Username</label>
-                      <div class="col-md-8 col-lg-9">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.username.label(class="form-control-label") }}</label>
+                      <div class="form-group">
+                        
                         {% if form.username.errors %}
-                              {{ form.username(class="form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.username.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.username(class="form-control") }}
-                            {% endif %}
+                            {{ form.username(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.username(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                      <div class="col-md-8 col-lg-9">
-                            {% if form.address.errors %}
-                              {{ form.address(class="form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.address.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.address(class="form-control ") }}
-                            {% endif %}
+                      <label class="col-md-4 col-lg-3 col-form-label">{{ form.address.label(class="form-control-label") }}</label>
+
+                      <div class="form-group">
+                        
+                        {% if form.address.errors %}
+                            {{ form.address(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.address.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.address(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Contact</label>
-                      <div class="col-md-8 col-lg-9">
+                      <label class="col-md-4 col-lg-3 col-form-label">{{ form.contact.label(class="form-control-label") }}</label>
+
+                      <div class="form-group">
+                        
                         {% if form.contact.errors %}
-                              {{ form.contact(class="form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.contact.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.contact(class="form-control") }}
-                               
-                            {% endif %}
+                            {{ form.contact(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.contact.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.contact(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                      <div class="col-md-8 col-lg-9">
-                              {% if form.email.errors %}
-                              {{ form.email(class="form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.email.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.email(class="form-control") }}
-                          
-                            {% endif %}
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.username.label(class="form-control-label") }}</label>
+                      <div class="form-group">
+                        
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
-                    <div class="form-group text-center">
-                      {{ form.save_changes(class="btn btn-primary ext-center") }}
+                    <div class="text-center">
+                      <button class="btn btn-primary w-100" type="submit">{{ form.save_changes(class="btn btn-primary w-100") }}</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
 
@@ -440,7 +444,7 @@
                     </div>
 
                     <div class="text-center">
-                      {{ form.change_password(class="btn btn-primary ext-center") }}
+                      <button type="submit" class="btn btn-primary">Change Password</button>
                     </div>
                   </form><!-- End Change Password Form -->
 
@@ -456,7 +460,7 @@
     </section>
 
   </main><!-- End #main -->
-
+s
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
