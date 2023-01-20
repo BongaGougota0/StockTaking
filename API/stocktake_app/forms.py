@@ -25,25 +25,25 @@ class Registration(FlaskForm):
 	'''Verify input details - they should not be already existing.'''
 
 	def validate_username(self, username):
-		user = User.query.filter_by(username=username.data).first()
+		user = Admin.query.filter_by(username=username.data).first()
 		if user:
 			raise ValidationError('Username not available, try another one.')
 
 	
 	def validate_email(self, email):
-		user = User.query.filter_by(email=email.data).first()
+		user = Admin.query.filter_by(email=email.data).first()
 		if user:
 			raise ValidationError('Email already in user, try with another email')
 
 class EditProfileForm(FlaskForm):
 	location = StringField('Location')
-	phone = StringField('Phone')
+	contact = StringField('Contact')
 	address = StringField('Address')
 	email = StringField("Email", validators=[DataRequired()])
 	username = StringField("Username", validators=[DataRequired()])
 	picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 	name = StringField("Name")
-	text = TextAreaField("About")
+	about = TextAreaField("About Store")
 
 	# Change password fields
 	current_psswd = PasswordField("Current Password", validators=[DataRequired()])
@@ -64,7 +64,7 @@ class EditProfileForm(FlaskForm):
 		if email.data != current_user.email:
 			user = Admin.query.filter_by(email=email.data).first()
 			if user:
-				raise ValidationError('Username taken, try another one.')
+				raise ValidationError('Email taken, try another one.')
 
 
 

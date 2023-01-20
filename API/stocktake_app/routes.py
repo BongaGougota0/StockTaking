@@ -16,13 +16,17 @@ from stocktake_app.models import User, List, Admin, Category, Product, Store, Ap
 @login_required
 def my_account():
     form = EditProfileForm()
-
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_image(form.picture.data)
             current_user.image_file = picture_file
+        current_user.name = form.name.data
+        current_user.about = form.about.data
         current_user.username = form.username.data
+        current_user.address = form.address.data
+        current_user.contact = form.contact.data
         current_user.email = form.email.data
+        current_user.location = form.location.data
         db.session.commit()
         flash('Successfully Update Account!', 'success')
         return redirect(url_for('my_account'))
@@ -30,8 +34,13 @@ def my_account():
         form.name.data = current_user.name
         form.username.data = current_user.username
         form.email.data = current_user.email
+        form.location.data = current_user.location
+        form.address.data = current_user.address
+        form.contact.data = current_user.contact
+        form.about.data = current_user.about
     image_file = url_for('static', filename='img/' + current_user.image_file)
     return render_template('my_account.html', title='My Account', form=form, image_file=image_file)
+    
 
 
 @app.route("/dashboard", methods=["GET","POST"])
@@ -82,13 +91,11 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
-        return redirect( url_for('dashboard_view'))
+        return redirect( url_for('dashboard'))
     form = Registration()
-    print('form object created')
     if form.validate_on_submit():
-        print('make user')
         hash_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(name=form.name.data, username=form.username.data, email=form.email.data, password=hash_password)
+        user = Admin(name=form.name.data, username=form.username.data, email=form.email.data, password=hash_password)
         db.session.add(user)
         db.session.commit()
         flash('Account created. Now Login', 'success')

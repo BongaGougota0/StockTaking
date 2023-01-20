@@ -11,7 +11,7 @@ from flask_login import UserMixin
 
 @login_manager.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    return Admin.query.get(int(id))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -70,6 +70,10 @@ class Admin(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
+    address = db.Column(db.String(20), nullable=True)
+    contact = db.Column(db.String(20), nullable=True)
+    location = db.Column(db.String(20), nullable=True)
+    about = db.Column(db.String(100), nullable=True)
 
     #relationship between user and the lists they create
     stores = db.relationship('Store', backref='store_admin', lazy=True)
@@ -82,7 +86,8 @@ class Admin(db.Model, UserMixin):
     image_file = db.Column(db.String(60), nullable=False, default='default.jpg')
 
     def __repr__(self):
-        return f"Admin('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"Admin('{self.name}', '{self.username}', '{self.email}', '{self.address}', '{self.contact}',\
+             '{self.location}', '{self.about}', '{self.stores}', '{self.image_file}')"
 
 class Store(db.Model):
     store_id = db.Column(db.Integer, primary_key=True)
