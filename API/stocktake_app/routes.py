@@ -12,11 +12,42 @@ from stocktake_app.models import User, List, Admin, Category, Product, Store, Ap
 
 '''--------------------------------Site Admin API End Points'''
 
-@app.route("/my_account", methods=["GET", "POST"])
-@login_required
-def my_account():
-    form = EditProfileForm()
-    return render_template('my_account.html', title='My Account', form=form)
+# @app.route("/my_account", methods=["GET", "POST"])
+# @login_required
+# def my_account():
+#     form = EditProfileForm()
+#     if form.validate_on_submit():
+#         if form.picture.data:
+#             picture_file = save_image(form.picture.data)
+#             current_user.image_file = picture_file
+#         current_user.username = form.username.data
+#         current_user.email = form.email.data
+#         db.session.commit()
+#         flash('Your account has been updated!', 'success')
+#         return redirect(url_for('my_account'))
+#     elif request.method == 'GET':
+#         form.name.data = current_user.name
+#         form.username.data = current_user.username
+#         form.email.data = current_user.email
+#     image_file = url_for('static', filename='img/' + current_user.image_file)
+#     return render_template('my_account.html', title='Account',
+#                            image_file=image_file, form=form)
+
+import os, secrets
+from PIL import Image
+def save_image(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/img', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
 
 
 @app.route("/dashboard", methods=["GET","POST"])
@@ -31,13 +62,6 @@ def dashboard():
     return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(set_))
 
 
-@app.route("/new_product", methods=["GET","POST"])
-@login_required
-def new_product():
-    form = NewProduct()
-    return render_template("new_product.html", title='New Product', form=form)
-
-
 @app.route("/logout")
 def logout():
     logout_user()
@@ -47,7 +71,7 @@ def logout():
 @app.route("/login", methods=["GET","POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect( url_for('dashboard_view'))
+        return redirect( url_for('dashboard'))
     form = Login()
     if form.validate_on_submit():
         '''Verify login details - Correctness.'''
@@ -67,7 +91,7 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
-        return redirect( url_for('dashboard_view'))
+        return redirect( url_for('dashboard'))
     form = Registration()
     print('form object created')
     if form.validate_on_submit():
@@ -81,11 +105,91 @@ def register():
     return render_template('register.html', header='Register', title='Create New Account', form=form)
 
 
-@app.route("/edit_product", methods=["GET", "POST"])
+@app.route("/my_account", methods=["GET", "POST"])
+@login_required
+def my_account():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_image(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        current_user.location = form.location.data
+        current_user.contact = form.contact.data
+        current_user.address = form.address.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('my_account'))
+    elif request.method == 'GET':
+        form.name.data = current_user.name
+        form.email.data = current_user.email
+        form.contact.data = current_user.contact
+        form.address.data = current_user.address
+        form.username.data = current_user.username
+        form.location.data = current_user.location
+    image_file = url_for('static', filename='img/' + current_user.image_file)
+    return render_template('my_account.html', title='Account',
+                           image_file=image_file, form=form)
+
+@app.route("/new_product", methods=['GET', 'POST'])
+@login_required
+def new_product():
+    form = NewProduct()
+    store = Store.query.filter_by(user_id=current_user.id).first()
+
+    if store is None:
+        flash('You do not have a store to manage/add product','success')
+        return redirect( url_for('new_store'))
+    
+    if form.validate_on_submit():
+        
+        if form.picture.data:
+            picture_file = save_image(form.picture.data)
+            
+            product = Product(product_name=form.product_name.data,
+            product_description=form.product_description, product_category=form.product_category,
+            product_price=form.product_price, product_store=form.product_store,
+            img_product=picture_file, store_id=store.store_id)
+            print('Your products added! success')
+            db.session.add(product)
+            db.session.commit()
+            # current_user.image_file = picture_file
+            flash('Your products added!', 'success')
+            return redirect(url_for('new_product'))
+        flash('You do not have a store to manage/add product','success')
+        return redirect( url_for('new_store'))
+    return render_template('new_product.html', title ="Add Product", form=form)
+
+@app.route("/edit_product", methods=['GET', 'POST'])
 @login_required
 def edit_product():
-    form = EditProductForm()
-    return render_template('edit_product.html', title='Edit Product', form=form)
+    form = NewProduct()
+    store = Store.query.filter_by(user_id=current_user.id).first()
+
+    if store is None:
+        flash('You do not have a store to manage/add product','success')
+        return redirect( url_for('new_store'))
+    
+    if form.validate_on_submit():
+        
+        if form.picture.data:
+            picture_file = save_image(form.picture.data)
+            
+            product = Product(product_name=form.product_name.data,
+            product_description=form.product_description, product_category=form.product_category,
+            product_price=form.product_price, product_store=form.product_store,
+            img_product=picture_file, store_id=store.store_id)
+            print('Your products added! success')
+            db.session.add(product)
+            db.session.commit()
+            # current_user.image_file = picture_file
+            flash('Your products added!', 'success')
+            return redirect(url_for('new_product'))
+        flash('You do not have a store to manage/add product','success')
+        return redirect( url_for('new_store'))
+    return render_template('new_product.html', title ="Add Product", form=form)
+
 
 
 @app.route('/create_category', methods=["GET", "POST"])

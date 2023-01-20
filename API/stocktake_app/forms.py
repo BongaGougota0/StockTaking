@@ -36,14 +36,13 @@ class Registration(FlaskForm):
 			raise ValidationError('Email already in user, try with another email')
 
 class EditProfileForm(FlaskForm):
-	about = TextAreaField("About My Store")
-	position = StringField("Job Post")
-	location = StringField('Location')
-	phone = StringField('Phone')
-	Address = StringField('Address')
-	twitter = StringField('Twitter Profile')
-	facebook = StringField('Facebook Profile')
-	linkedIn = StringField('LinkedIn Profile')
+	name = StringField("Name")
+	username = StringField('Username')
+	location = StringField("Location")
+	address = StringField('Address')
+	contact = StringField('Contact')
+	email = StringField('Email')
+	picture =FileField("Image", validators=[FileAllowed(['jpeg', 'png', 'jpg'])])
 
 	save_changes = SubmitField('Save Changes')
 	change_password = SubmitField('Change Password')

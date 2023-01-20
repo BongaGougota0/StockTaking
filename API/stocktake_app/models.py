@@ -17,11 +17,17 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
+    location = db.Column(db.String(30), nullable=True)
+    address = db.Column(db.String(30), nullable=True)
+    contact = db.Column(db.String(30), nullable=True)
     email = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
 
     #relationship between user and the lists they create
     lists = db.relationship('List', backref='creator', lazy=True)
+
+        #relationship between user and the lists they create
+    store = db.relationship('List', backref='store_admin', lazy=True)
 
     #hashing algorithm used 60 chars
     image_file = db.Column(db.String(60), nullable=False, default='default.jpg')
@@ -67,7 +73,7 @@ class Admin(db.Model):
     password = db.Column(db.String(20), unique=True, nullable=False)
 
     #relationship between user and the lists they create
-    stores = db.relationship('Store', backref='store_admin', lazy=True)
+    # stores = db.relationship('Store', backref='store_admin', lazy=True)
 
     #Use dropdown menu on the front - end instead of complex relationships
     #Categories created
@@ -88,8 +94,8 @@ class Store(db.Model):
     store_contact = db.Column(db.String(60), nullable=False)
     store_logo = db.Column(db.String(60), nullable=False, default='default_store_logo.jpg')
 
-    #refernces back {{store_admin}} property
-    user_id = db.Column(db.Integer, db.ForeignKey('admin.id'), nullable=False)
+    #refernces back {{user.id}} property
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     #each store has many products 1-to-M
     products = db.relationship('Product', backref='store', lazy=True)
 

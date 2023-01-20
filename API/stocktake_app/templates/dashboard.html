@@ -31,7 +31,7 @@
                     </li><!-- End Search Icon-->
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{{ url_for('static', filename='img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+                        <img src="{{ url_for('static', filename='img/'+current_user.image_file) }}" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ current_user.username }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
@@ -104,7 +104,7 @@
             </li><!-- End Add product Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ url_for('edit_product') }}">
+                <a class="nav-link collapsed" href="{{ url_for('new_product') }}">
                 <i class="bi bi-card-list"></i>
                 <span>Edit Existing Product</span>
                 </a>
