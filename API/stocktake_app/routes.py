@@ -7,7 +7,7 @@ Fri Jan 13 02:54:21 2023
 from flask import Flask, render_template, url_for, flash, json, redirect, jsonify, request, abort
 from flask_login import current_user, logout_user, login_user, login_required
 from stocktake_app import db, app, bcrypt
-from stocktake_app.forms import Login, Registration, NewProduct, EditProfileForm, EditProductForm
+from stocktake_app.forms import Login, Registration, AddProduct, EditProfileForm, EditProductForm, CreateStoreForm
 from stocktake_app.models import User, List, Admin, Category, Product, Store, App
 
 '''--------------------------------Site Admin API End Points'''
@@ -55,11 +55,83 @@ def dashboard():
     return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(set_))
 
 
-@app.route("/new_product", methods=["GET","POST"])
+# @app.route("/new_product", methods=["GET","POST"])
+# @login_required
+# def new_product():
+#     form = AddProduct()
+#     store = Store.query.filter_by(user_id=current_user.id).first()
+#     if store:
+#         if form.validate_on_submit():
+#             product = Product(product_name=form.product_name.data,
+#             product_description=form.product_description, product_category=form.product_category,
+#             product_price=form.product_price, product_store=form.product_store,
+#             img_product=form.image_file, store_id=store.store_id)
+
+#             # Add this product to the store list
+#             store.products.append(product)
+#             # and to Products Table - testing phase
+#             db.session.add(product)
+#             db.session.commit()
+#             flash('Product succesfully Added to your store', 'success')
+#             return redirect( url_for(new_product) )
+#         else:
+#             # form error
+#             flash('Could not add product', 'warining')
+#             return render_template('new_product.html', title='New Product',
+#              form=form)
+#     flash('You do not have a store to manage/add product','success')
+#     return redirect( url_for('new_store'))
+
+@app.route("/new_product", methods=['GET', 'POST'])
 @login_required
 def new_product():
-    form = NewProduct()
-    return render_template("new_product.html", title='New Product', form=form)
+    form = AddProduct()
+    store = Store.query.filter_by(user_id=current_user.id).first()
+
+    if store is None:
+        flash('You do not have a store to manage/add product','success')
+        return redirect( url_for('new_store'))
+    
+    if form.validate_on_submit():
+        
+        if form.picture.data:
+            picture_file = save_image(form.picture.data)
+            
+            product = Product(product_name=form.product_name.data,
+            product_description=form.product_description, product_category=form.product_category,
+            product_price=form.product_price, product_store=form.product_store,
+            img_product=picture_file, store_id=store.store_id)
+            print('Your products added! success')
+            db.session.add(product)
+            db.session.commit()
+            # current_user.image_file = picture_file
+            flash('Your products added!', 'success')
+            return redirect(url_for('new_product'))
+        flash('You do not have a store to manage/add product','success')
+        return redirect( url_for('new_store'))
+    return render_template('new_product.html', title ="Add Product", form=form)
+
+
+
+#method to create store only once
+@app.route("/new_store", methods=["GET","POST"])
+@login_required
+def new_store():
+    form = CreateStoreForm()
+
+    if form.validate():
+        store = Store(store_name=form.name.data, store_location=form.location.data,
+        store_description=form.description.data, store_email=form.email.data, 
+        store_contact=form.contact.data, store_logo=form.image_file.data, 
+        user_id=current_user.id)
+
+        db.session.add(store)
+        db.session.commit()
+
+        # Store created now got add products!
+        flash('Store created', 'success')
+        return redirect(url_for('new_product'))
+    return render_template('new_store.html', title='New Store', form=form)
 
 
 @app.route("/logout")
@@ -95,7 +167,8 @@ def register():
     form = Registration()
     if form.validate_on_submit():
         hash_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = Admin(name=form.name.data, username=form.username.data, email=form.email.data, password=hash_password)
+        user = Admin(name=form.name.data, username=form.username.data, 
+        email=form.email.data, password=hash_password)
         db.session.add(user)
         db.session.commit()
         flash('Account created. Now Login', 'success')

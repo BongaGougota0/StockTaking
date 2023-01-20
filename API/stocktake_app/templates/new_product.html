@@ -1,6 +1,15 @@
 {% extends "admin_layout.html" %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 {% block content %}
-<body>
+<div>
 
       <!-- ======= Header ======= -->
       <header id="header" class="header fixed-top d-flex align-items-center">
@@ -30,7 +39,7 @@
                   </li><!-- End Search Icon-->
 
                   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                      <img src="{{ url_for('static', filename='img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+                      <img src="{{ url_for('static', filename='img/' + current_user.image_file) }}" alt="Profile" class="rounded-circle">
                       <span class="d-none d-md-block dropdown-toggle ps-2">{{ current_user.username }}</span>
                   </a><!-- End Profile Iamge Icon -->
 
@@ -39,13 +48,13 @@
 
       </header><!-- End Header -->
   
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
+     <!-- ======= Sidebar ======= -->
+     <aside id="sidebar" class="sidebar">
 
       <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-          <a class="nav-link " href="index.html">
+          <a class="nav-link " href="{{ url_for('dashboard') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
           </a>
@@ -53,12 +62,26 @@
 
       <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Store Management</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li>
                   <a href="tables-general.html">
-                  <i class="bi bi-circle"></i><span>General Tables</span>
+                  <i class="bi bi-circle"></i><span>Sale Records</span>
+                  </a>
+              </li>
+          </ul>
+          <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                  <a href="tables-general.html">
+                  <i class="bi bi-circle"></i><span>Store Categories</span>
+                  </a>
+              </li>
+          </ul>
+          <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                  <a href="tables-general.html">
+                  <i class="bi bi-circle"></i><span>Store Products</span>
                   </a>
               </li>
           </ul>
@@ -96,18 +119,11 @@
       </li><!-- End Register Page Nav -->
 
       <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
+          <a class="nav-link collapsed" href="{{ url_for('new_store') }}">
+          <i class="bi bi-card-list"></i>
+          <span>Create Your Store</span>
           </a>
-      </li><!-- End Error 404 Page Nav -->
-
-      <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-          </a>
-      </li><!-- End Blank Page Nav -->
+      </li><!-- End Register Page Nav -->
 
       <li class="nav-item">
           <a class="nav-link collapsed" href="{{ url_for('logout') }}">
@@ -118,295 +134,214 @@
 
       </ul>
 
-    </aside><!-- End Sidebar-->
+  </aside><!-- End Sidebar-->
 
   
     <main id="main" class="main">
   
       <div class="pagetitle">
-        <h1>Form Elements</h1>
+        <h1>Products Managements</h1>
         <nav>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item">Forms</li>
-            <li class="breadcrumb-item active">Elements</li>
+            <li class="breadcrumb-item"><a href="index.html">Add</a></li>
+            <li class="breadcrumb-item">Edit Product</li>
+            <li class="breadcrumb-item active">All Products</li>
           </ol>
         </nav>
       </div><!-- End Page Title -->
   
-      <section class="section">
-        <div class="row">
-          <div class="col-lg-6">
-  
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">General Form Elements</h5>
-  
-                <!-- General Form Elements -->
-                <form method="POST" action="">
-                    {{ form.hidden_tag() }}
-                  <div class="row mb-3">
-                    <label for="inputText" class="col-sm-2 col-form-label">Text</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                      <input type="email" class="form-control">
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-10">
-                      <input type="password" class="form-control">
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label for="inputNumber" class="col-sm-2 col-form-label">Number</label>
-                    <div class="col-sm-10">
-                      <input type="number" class="form-control">
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
-                    <div class="col-sm-10">
-                      <input class="form-control" type="file" id="formFile">
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-                    <div class="col-sm-10">
-                      <input type="date" class="form-control">
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
-                    <div class="col-sm-10">
-                      <input type="time" class="form-control">
-                    </div>
-                  </div>
-  
-                  <div class="row mb-3">
-                    <label for="inputColor" class="col-sm-2 col-form-label">Color Picker</label>
-                    <div class="col-sm-10">
-                      <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#4154f1" title="Choose your color">
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Textarea</label>
-                    <div class="col-sm-10">
-                      <textarea class="form-control" style="height: 100px"></textarea>
-                    </div>
-                  </div>
-                  <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                        <label class="form-check-label" for="gridRadios1">
-                          First radio
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                        <label class="form-check-label" for="gridRadios2">
-                          Second radio
-                        </label>
-                      </div>
-                      <div class="form-check disabled">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="option" disabled>
-                        <label class="form-check-label" for="gridRadios3">
-                          Third disabled radio
-                        </label>
-                      </div>
-                    </div>
-                  </fieldset>
-                  <div class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">Checkboxes</legend>
-                    <div class="col-sm-10">
-  
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck1">
-                        <label class="form-check-label" for="gridCheck1">
-                          Example checkbox
-                        </label>
-                      </div>
-  
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck2" checked>
-                        <label class="form-check-label" for="gridCheck2">
-                          Example checkbox 2
-                        </label>
-                      </div>
-  
-                    </div>
-                  </div>
-  
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Disabled</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" value="Read only / Disabled" disabled>
-                    </div>
-                  </div>
-  
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Select</label>
-                    <div class="col-sm-10">
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                    </div>
-                  </div>
-  
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Multi Select</label>
-                    <div class="col-sm-10">
-                      <select class="form-select" multiple aria-label="multiple select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                    </div>
-                  </div>
-  
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Submit Button</label>
-                    <div class="col-sm-10">
-                      <button type="submit" class="btn btn-primary">Submit Form</button>
-                    </div>
-                  </div>
-  
-                </form><!-- End General Form Elements -->
-  
-              </div>
-            </div>
-  
-          </div>
-  
-          <div class="col-lg-6">
-  
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Advanced Form Elements</h5>
-  
-                <!-- Advanced Form Elements -->
-                <form method="POST" action="">
-                    {{ form.hidden_tag() }}
-                  <div class="row mb-5">
-                    <label class="col-sm-2 col-form-label">Switches</label>
-                    <div class="col-sm-10">
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-                      </div>
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
-                      </div>
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled>
-                        <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
-                      </div>
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled>
-                        <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="row mb-5">
-                    <label class="col-sm-2 col-form-label">Ranges</label>
-                    <div class="col-sm-10">
-                      <div>
-                        <label for="customRange1" class="form-label">Example range</label>
-                        <input type="range" class="form-range" id="customRange1">
-                      </div>
-                      <div>
-                        <label for="disabledRange" class="form-label">Disabled range</label>
-                        <input type="range" class="form-range" id="disabledRange" disabled>
-                      </div>
-                      <div>
-                        <label for="customRange2" class="form-label">Min and max with steps</label>
-                        <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange2">
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Floating labels</label>
-                    <div class="col-sm-10">
-                      <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
-                      </div>
-                      <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
-                      </div>
-                      <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"></textarea>
-                        <label for="floatingTextarea">Comments</label>
-                      </div>
-                      <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                          <option selected>Open this select menu</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </select>
-                        <label for="floatingSelect">Works with selects</label>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="row mb-5">
-                    <label class="col-sm-2 col-form-label">Input groups</label>
-                    <div class="col-sm-10">
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">@</span>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                      </div>
-  
+      <section>
 
-  
-                      <label for="basic-url" class="form-label">Your vanity URL</label>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+        <form method="POST" action="" enctype="multipart/form-data">
+              <div class="col-lg-12">
+      
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Create A New Product</h5>
+      
+                    <!-- General Form Elements -->
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+
+                      <div class="row mb-3">
+                        <div class="form-group">
+                          <label  class="col-sm-2 col-form-label">Name</label>
+                          <div class="col-sm-10">
+                            {% if form.product_name.errors %}
+                              {{ form.product_name(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.product_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.product_name(class="form-control") }}
+              
+                            {% endif %}
+                          </div>
                       </div>
-  
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">$</span>
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <span class="input-group-text">.00</span>
+
+                      <div class="row mb-3">
+                        <div class="form-group">
+                          <label  class="col-sm-2 col-form-label">Store</label>
+                          <div class="col-sm-10">
+                            {% if form.product_store.errors %}
+                              {{ form.product_store(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.product_store.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.product_store(class="form-control") }}
+              
+                            {% endif %}
+                          </div>
                       </div>
-  
-                      <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                        <span class="input-group-text">@</span>
-                        <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+
+                      <div class="row mb-3">
+                        <div class="form-group">
+                          <label  class="col-sm-2 col-form-label">Qty</label>
+                          <div class="col-sm-10">
+                            {% if form.product_quantity.errors %}
+                              {{ form.product_quantity(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.product_quantity.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.product_quantity(class="form-control") }}
+              
+                            {% endif %}
+                          </div>
                       </div>
-  
-                      <div class="input-group">
-                        <span class="input-group-text">With textarea</span>
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
+
+
+                      <div class="row mb-3">
+                        <div class="form-group">
+                          <label  class="col-sm-2 col-form-label">Product Price</label>
+                          <div class="col-sm-10">
+                            {% if form.product_price.errors %}
+                              {{ form.product_price(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.product_price.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.product_price(class="form-control") }}
+              
+                            {% endif %}
+                          </div>
                       </div>
                     </div>
+
+                      <div class="row mb-3">
+                        {{ form.image_file.label(class="col-sm-2 col-form-label") }}
+                        <div class="col-sm-10">
+                          {{ form.image_file(class="form-control-file") }}
+                          {% if form.image_file.errors %}
+                            {% for error in form.image_file.errors %}
+                                <span class="text-danger">{{ error }}</span></br>
+                            {% endfor %}
+                        {% endif %}
+
+                        </div>
+                      </div>
+                      <!-- Store id should be silently inserted on the background from 
+                        current_user.
+                        
+                        <div class="row mb-3">
+                        <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-10">
+                          <input type="date" class="form-control">
+                        </div>
+                      </div> -->
+                      <div class="row mb-3">
+                          <div class="form-group">
+                            <label  class="col-sm-2 col-form-label">Product Description</label>
+                            <div class="col-sm-10">
+                              {% if form.product_description.errors %}
+                                {{ form.product_description(class="form-control is-invalid") }}
+                                  <div class="invalid-feedback">
+                                      {% for error in form.product_description.errors %}
+                                          <span>{{ error }}</span>
+                                      {% endfor %}
+                                  </div>
+                              {% else %}
+                                  {{ form.product_description(class="form-control") }}
+                
+                              {% endif %}
+                            </div>
+                        </div>
+                      </div>
+                    
+                      <!-- <div class="row mb-3">
+                        <legend class="col-form-label col-sm-2 pt-0">Checkboxes</legend>
+                        <div class="col-sm-10">
+      
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck1">
+                            <label class="form-check-label" for="gridCheck1">
+                              Example checkbox
+                            </label>
+                          </div>
+      
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck2" checked>
+                            <label class="form-check-label" for="gridCheck2">
+                              Example checkbox 2
+                            </label>
+                          </div>
+      
+                        </div>
+                      </div> -->
+
+                      <div class="row mb-3">
+                        <div class="form-group">
+                          <label class="col-sm-2 col-form-label">Category</label>
+                          <div class="col-sm-10">
+                            {% if form.product_category.errors %}
+                                  {{ form.product_category(class="form-control form-control-lg is-invalid") }}
+                                  <div class="invalid-feedback">
+                                      {% for error in form.product_category.errors %}
+                                          <span>{{ error }}</span>
+                                      {% endfor %}
+                                  </div>
+                              {% else %}
+                                  {{ form.product_category(class="form-control form-control-lg") }}
+                              {% endif %}
+                          </div>
+                        </div>
+                      </div>
+      
+                      <!-- <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Category</label>
+                        <div class="col-sm-10">
+                          <select class="form-select" aria-label="Default select example">
+                            <option selected>Select Category</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                      </div> -->
+      
+                    
+                      <div class="row mb-3">
+                        <div class="col-sm-10">
+                          <div class="form-group">
+                            {{ form.create_button(class="btn btn-primary") }}
+                          </div>
+                      </div>  
+                    </form><!-- End General Form Elements -->
+      
                   </div>
-  
-                </form><!-- End General Form Elements -->
-  
-              </div>
+                </div>
+      
             </div>
-  
-          </div>
-        </div>
+          </form>
       </section>
   
     </main><!-- End #main -->
@@ -426,5 +361,5 @@
     <!-- Template Main JS File -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   
-  </body>
+  </div>
 {% endblock %}

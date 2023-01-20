@@ -75,16 +75,26 @@ class Login(FlaskForm):
 	remember = BooleanField()
 	login = SubmitField('Login')
 
+class CreateStoreForm(FlaskForm):
+	name = StringField('Store Name', validators=[DataRequired()])
+	description = StringField('About Store')
+	location = StringField('Store Location')
+	email = StringField('Store Email', validators=[DataRequired()])
+	contact = StringField('Store Contact', validators=[DataRequired()])
+	image_file = FileField('Store Image/Logo', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+	# auto inserted
+	admin_id = StringField(validators=[DataRequired()])
 
+	create_store = SubmitField('Create Store')
 
-class NewProduct(FlaskForm):
+class AddProduct(FlaskForm):
 	product_name = StringField('Product Name', validators=[DataRequired()])
-	product_description = StringField('Product Description', validators=[DataRequired()])
+	product_description = TextAreaField('Product Description', validators=[DataRequired()])
 	product_category = StringField('Product Category', validators=[DataRequired()])
-	product_price = StringField('Price', validators=[DataRequired(), Email()])
+	product_price = StringField('Price', validators=[DataRequired()])
 	product_quantity = StringField('In Stock', validators=[DataRequired()])
 	product_store = StringField('Store Seller', validators=[DataRequired()])
-	image_file = FileField('Upload category image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+	image_file = FileField('Product Image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 	store_id = StringField(validators=[DataRequired()])
 
 	create_button = SubmitField('Create Product')

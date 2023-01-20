@@ -96,7 +96,7 @@ class Store(db.Model):
     store_description = db.Column(db.String(100))
     store_email = db.Column(db.String(60), nullable=False)
     store_contact = db.Column(db.String(60), nullable=False)
-    store_logo = db.Column(db.String(60), nullable=False, default='default_store_logo.jpg')
+    store_logo = db.Column(db.String(60), nullable=False, default='default.jpg')
 
     #refernces back {{store_admin}} property
     user_id = db.Column(db.Integer, db.ForeignKey('admin.id'), nullable=False)
@@ -113,7 +113,7 @@ class Product(db.Model):
     product_category = db.Column(db.String(30), nullable=False)
     product_price = db.Column(db.Integer, nullable=False)
     product_store = db.Column(db.String(30), nullable=False)
-    img_product = db.Column(db.String(60), nullable=False, default='default_product.jpg')
+    img_product = db.Column(db.String(60), nullable=False, default='default.jpg')
 
     #each product is created for a specific store
     # one store --> Many products relationship M-to-1
@@ -130,7 +130,7 @@ class Category(db.Model):
     category_id = db.Column(db.Integer, primary_key=True)
     category_name = db.Column(db.String(30), unique=True, nullable=False)
     category_description = db.Column(db.String(30))
-    img_category_product = db.Column(db.String(60), nullable=False, default='default_icon.jpg')
+    img_category_product = db.Column(db.String(60), nullable=False, default='default.jpg')
 
     #A category can be created by any admin, and should be accessible by any other admin
     # one store --> Many products relationship 1-to-M
