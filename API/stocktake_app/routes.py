@@ -7,31 +7,10 @@ Fri Jan 13 02:54:21 2023
 from flask import Flask, render_template, url_for, flash, json, redirect, jsonify, request
 from stocktake_app import app, bcrypt, db
 from flask_login import current_user, logout_user, login_user, login_required
-from stocktake_app.forms import Login, Registration, NewProduct, EditProfileForm, EditProductForm
+from stocktake_app.forms import Login, Registration, CreateStoreForm, NewProduct, EditProfileForm, EditProductForm
 from stocktake_app.models import User, List, Admin, Category, Product, Store, App
 
 '''--------------------------------Site Admin API End Points'''
-
-# @app.route("/my_account", methods=["GET", "POST"])
-# @login_required
-# def my_account():
-#     form = EditProfileForm()
-#     if form.validate_on_submit():
-#         if form.picture.data:
-#             picture_file = save_image(form.picture.data)
-#             current_user.image_file = picture_file
-#         current_user.username = form.username.data
-#         current_user.email = form.email.data
-#         db.session.commit()
-#         flash('Your account has been updated!', 'success')
-#         return redirect(url_for('my_account'))
-#     elif request.method == 'GET':
-#         form.name.data = current_user.name
-#         form.username.data = current_user.username
-#         form.email.data = current_user.email
-#     image_file = url_for('static', filename='img/' + current_user.image_file)
-#     return render_template('my_account.html', title='Account',
-#                            image_file=image_file, form=form)
 
 import os, secrets
 from PIL import Image
@@ -147,18 +126,17 @@ def new_product():
         if form.picture.data:
             picture_file = save_image(form.picture.data)
             
-            product = Product(product_name=form.product_name.data,
-            product_description=form.product_description, product_category=form.product_category,
-            product_price=form.product_price, product_store=form.product_store,
-            img_product=picture_file, store_id=store.store_id)
-            print('Your products added! success')
-            db.session.add(product)
-            db.session.commit()
-            # current_user.image_file = picture_file
-            flash('Your products added!', 'success')
-            return redirect(url_for('new_product'))
-        flash('You do not have a store to manage/add product','success')
-        return redirect( url_for('new_store'))
+        product = Product(product_name=form.product_name.data,
+        product_description=form.product_description, product_category=form.product_category,
+        product_price=form.product_price, product_store=form.product_store,
+        img_product=picture_file, store_id=store.store_id)
+        print('Your products added! success')
+        db.session.add(product)
+        db.session.commit()
+        # current_user.image_file = picture_file
+        flash('Your products added!', 'success')
+        return redirect(url_for('new_product'))
+        
     return render_template('new_product.html', title ="Add Product", form=form)
 
 @app.route("/edit_product", methods=['GET', 'POST'])
@@ -191,6 +169,32 @@ def edit_product():
     return render_template('new_product.html', title ="Add Product", form=form)
 
 
+
+@app.route("/new_store", methods=["GET","POST"])
+@login_required
+def new_store():
+    form = CreateStoreForm()
+    if form.validate_on_submit():
+        if form.image_file.data:
+            picture_file = save_image(form.image_file.data)
+            # current_user.image_file = picture_file
+        store = Store(store_name=form.name.data, store_location=form.location.data,
+        store_description=form.description.data, store_email=form.email.data, 
+        store_contact=form.contact.data, store_logo=picture_file, 
+        user_id=current_user.id)
+
+        db.session.add(store)
+        db.session.commit()
+        flash('Your store is created!', 'success')
+        return redirect(url_for('new_product'))
+    # elif request.method == 'GET':
+    #     form.name.data = current_user.name
+    #     form.email.data = current_user.email
+    #     form.contact.data = current_user.contact
+    #     form.address.data = current_user.address
+    #     form.username.data = current_user.username
+    #     form.location.data = current_user.location
+    return render_template('new_store.html', title='New Store',form=form)
 
 @app.route('/create_category', methods=["GET", "POST"])
 @login_required

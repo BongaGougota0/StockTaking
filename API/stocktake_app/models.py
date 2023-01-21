@@ -24,10 +24,10 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(20), nullable=False)
 
     #relationship between user and the lists they create
-    lists = db.relationship('List', backref='creator', lazy=True)
+    # lists = db.relationship('List', backref='creator', lazy=True)
 
         #relationship between user and the lists they create
-    store = db.relationship('List', backref='store_admin', lazy=True)
+    store = db.relationship('Store', backref='store_admin', lazy=True)
 
     #hashing algorithm used 60 chars
     image_file = db.Column(db.String(60), nullable=False, default='default.jpg')
@@ -61,7 +61,7 @@ class List(db.Model):
     total_price = db.Column(db.String(5), nullable=False)
 
     #references {{creator}} property
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f"List('{self.items}', '{self.date_created}')"
@@ -92,7 +92,7 @@ class Store(db.Model):
     store_description = db.Column(db.String(100))
     store_email = db.Column(db.String(60), nullable=False)
     store_contact = db.Column(db.String(60), nullable=False)
-    store_logo = db.Column(db.String(60), nullable=False, default='default_store_logo.jpg')
+    store_logo = db.Column(db.String(60), nullable=False, default='default.jpg')
 
     #refernces back {{user.id}} property
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
