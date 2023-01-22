@@ -14,11 +14,11 @@ from stocktake_app.models import User, List, Admin, Category, Product, Store, Ap
 
 import os, secrets
 from PIL import Image
-def save_image(form_picture):
+def save_image(path, form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/img', picture_fn)
+    picture_path = os.path.join(app.root_path, path, picture_fn)
 
     output_size = (125, 125)
     i = Image.open(form_picture)
@@ -89,9 +89,11 @@ def register():
 def my_account():
     form = EditProfileForm()
     if form.validate_on_submit():
+        
         if form.picture.data:
-            picture_file = save_image(form.picture.data)
+            picture_file = save_image('static/profile_img',form.picture.data)
             current_user.image_file = picture_file
+        
         current_user.username = form.username.data
         current_user.email = form.email.data
         current_user.location = form.location.data
@@ -115,28 +117,33 @@ def my_account():
 @login_required
 def new_product():
     form = NewProduct()
-    store = Store.query.filter_by(user_id=current_user.id).first()
+    store = Store.query.filter_by(user_id=current_user.get_id()).first()
 
     if store is None:
         flash('You do not have a store to manage/add product','success')
         return redirect( url_for('new_store'))
     
     if form.validate_on_submit():
-        
-        if form.picture.data:
-            picture_file = save_image(form.picture.data)
+        if form.image_file.data:
+            picture_file = save_image('static/products_img',form.image_file.data)
             
         product = Product(product_name=form.product_name.data,
-        product_description=form.product_description, product_category=form.product_category,
-        product_price=form.product_price, product_store=form.product_store,
+        product_description=form.product_description.data, product_category=form.product_category.data,
+        product_price=form.product_price.data, product_store=form.product_store.data,
         img_product=picture_file, store_id=store.store_id)
+
         print('Your products added! success')
         db.session.add(product)
         db.session.commit()
         # current_user.image_file = picture_file
         flash('Your products added!', 'success')
         return redirect(url_for('new_product'))
-        
+    else:
+        for _, errors in form.errors.items():
+            for error in errors:
+                print("###### "+error)
+
+    print('Re render new product template')
     return render_template('new_product.html', title ="Add Product", form=form)
 
 @app.route("/edit_product", methods=['GET', 'POST'])
@@ -152,7 +159,7 @@ def edit_product():
     if form.validate_on_submit():
         
         if form.picture.data:
-            picture_file = save_image(form.picture.data)
+            picture_file = save_image('static/products_img',form.picture.data)
             
             product = Product(product_name=form.product_name.data,
             product_description=form.product_description, product_category=form.product_category,
@@ -174,26 +181,28 @@ def edit_product():
 @login_required
 def new_store():
     form = CreateStoreForm()
+    store = Store.query.filter_by(user_id=current_user.get_id()).first()
+
     if form.validate_on_submit():
+        print('Running Post')
         if form.image_file.data:
-            picture_file = save_image(form.image_file.data)
-            # current_user.image_file = picture_file
-        store = Store(store_name=form.name.data, store_location=form.location.data,
-        store_description=form.description.data, store_email=form.email.data, 
-        store_contact=form.contact.data, store_logo=picture_file, 
-        user_id=current_user.id)
+            picture_file = save_image('static/img',form.image_file.data)
+            
+        print('Running after form if Post')
+        store = Store(store_name=form.name.data, store_location=form.location.data, store_description=form.description.data, store_email=form.email.data, store_contact=form.contact.data, store_logo=picture_file, user_id=current_user.id)
 
         db.session.add(store)
         db.session.commit()
         flash('Your store is created!', 'success')
         return redirect(url_for('new_product'))
-    # elif request.method == 'GET':
-    #     form.name.data = current_user.name
-    #     form.email.data = current_user.email
-    #     form.contact.data = current_user.contact
-    #     form.address.data = current_user.address
-    #     form.username.data = current_user.username
-    #     form.location.data = current_user.location
+    elif request.method == 'GET':
+        print('Ruunig elif')
+        form.name.data = ''
+        form.location.data = ''
+        form.description.data = ''
+        form.email.data = ''
+        form.contact.data = ''
+        form.image_file.data = ''
     return render_template('new_store.html', title='New Store',form=form)
 
 @app.route('/create_category', methods=["GET", "POST"])

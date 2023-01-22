@@ -30,7 +30,7 @@
                   </li><!-- End Search Icon-->
 
                   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                      <img src="{{ url_for('static', filename='img/' + current_user.image_file) }}" alt="Profile" class="rounded-circle">
+                      <img src="{{ url_for('static', filename='profile_img/' + current_user.image_file) }}" alt="Profile" class="rounded-circle">
                       <span class="d-none d-md-block dropdown-toggle ps-2">{{ current_user.description }}</span>
                   </a><!-- End Profile Iamge Icon -->
 
@@ -135,115 +135,115 @@
       </div><!-- End Page Title -->
   
       <form method="POST" action="" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
+            {{ form.hidden_tag() }}
 
 
-        <div class="row mb-3">
-          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.name.label(class="form-control-label") }}</label>
+            <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.name.label(class="form-control-label") }}</label>
 
-          <div class="form-group">
-            
-            {% if form.name.errors %}
-                {{ form.name(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.name.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
+                <div class="form-group">
+                    
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.name(class="form-control form-control-lg") }}
+                    {% endif %}
                 </div>
-            {% else %}
-                {{ form.name(class="form-control form-control-lg") }}
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.description.label(class="form-control-label") }}</label>
-          <div class="form-group">
-            
-            {% if form.description.errors %}
-                {{ form.description(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.description.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-                {{ form.description(class="form-control form-control-lg") }}
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.location.label(class="form-control-label") }}</label>
-          <div class="form-group">
-            
-            {% if form.location.errors %}
-                {{ form.location(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.location.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-                {{ form.location(class="form-control form-control-lg") }}
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.email.label(class="form-control-label") }}</label>
-          <div class="form-group">
-            
-            {% if form.email.errors %}
-                {{ form.email(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.email.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-                {{ form.email(class="form-control form-control-lg") }}
-            {% endif %}
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.contact.label(class="form-control-label") }}</label>
-          <div class="form-group">
-            
-            {% if form.contact.errors %}
-                {{ form.contact(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.contact.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-                {{ form.contact(class="form-control form-control-lg") }}
-            {% endif %}
-          </div>
-        </div>
-
-
-        <div class="row mb-3">
-          <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.image_file.label(class="form-control-label") }}</label>
-          <div class="form-group">
-            
-            <div class="form-group">
-              <!-- {{ form.image_file.label() }} -->
-              {{ form.image_file(class="form-control-file") }}
-              {% if form.image_file.errors %}
-                  {% for error in form.image_file.errors %}
-                      <span class="text-danger">{{ error }}</span></br>
-                  {% endfor %}
-              {% endif %}
             </div>
-          </div>
-        </div>
 
-        <div class="text-center">
-          <button class="btn btn-primary w-100" type="submit">{{ form.create_store(class="btn btn-primary w-100") }}</button>
-        </div>
+            <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.description.label(class="form-control-label") }}</label>
+                <div class="form-group">
+                    
+                    {% if form.description.errors %}
+                        {{ form.description(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.description.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.description(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.location.label(class="form-control-label") }}</label>
+                <div class="form-group">
+                    
+                    {% if form.location.errors %}
+                        {{ form.location(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.location.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.location(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.email.label(class="form-control-label") }}</label>
+                <div class="form-group">
+                    
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.contact.label(class="form-control-label") }}</label>
+                <div class="form-group">
+                    
+                    {% if form.contact.errors %}
+                        {{ form.contact(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.contact.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.contact(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.image_file.label(class="form-control-label") }}</label>
+                <div class="form-group">
+                    
+                    <div class="form-group">
+                    <!-- {{ form.image_file.label() }} -->
+                    {{ form.image_file(class="form-control-file") }}
+                    {% if form.image_file.errors %}
+                        {% for error in form.image_file.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary w-100" type="submit">{{ form.create_store(class="btn btn-primary w-100") }}</button>
+            </div>
       </form><!-- End Profile Edit Form -->
   
     </main><!-- End #main -->
