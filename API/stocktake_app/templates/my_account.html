@@ -28,7 +28,7 @@
                   </li><!-- End Search Icon-->
 
                   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                      <img src="{{ url_for('static', filename='img/'+current_user.image_file) }}" alt="Profile" class="rounded-circle">
+                      <img src="{{ url_for('static', filename='profile_img/'+current_user.image_file) }}" alt="Profile" class="rounded-circle">
                       <span class="d-none d-md-block dropdown-toggle ps-2">{{ current_user.username }}</span>
                   </a><!-- End Profile Iamge Icon -->
 
@@ -138,15 +138,10 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="{{ url_for('static', filename='img/'+current_user.image_file) }}" alt="Profile" class="rounded-circle">
+              <img src="{{ url_for('static', filename='profile_img/'+current_user.image_file) }}" alt="Profile" class="rounded-circle">
               <h2>{{  current_user.name }}</h2>
               <h3>{{  current_user.email }}</h3>
-              <div class="social-links mt-2">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div>
+
             </div>
           </div>
 
@@ -182,41 +177,41 @@
                   <h5 class="card-title">About</h5>
                   <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
 
-                  <h5 class="card-title">Profile Details</h5>
+                  <h5 class="card-title">Profile Overview</h5>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+                    <div class="col-lg-3 col-md-4 label ">Store Name</div>
+                    <div class="col-lg-9 col-md-8">{{ current_user.name }}</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Company</div>
-                    <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
+                    <div class="col-lg-3 col-md-4 label">About</div>
+                    <div class="col-lg-9 col-md-8">{{ current_user.about }}</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Job</div>
-                    <div class="col-lg-9 col-md-8">Web Designer</div>
+                    <div class="col-lg-3 col-md-4 label">Name</div>
+                    <div class="col-lg-9 col-md-8">{{ current_user.name }}</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Country</div>
-                    <div class="col-lg-9 col-md-8">USA</div>
+                    <div class="col-lg-3 col-md-4 label">About</div>
+                    <div class="col-lg-9 col-md-8">{{ current_user.about }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Address</div>
-                    <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+                    <div class="col-lg-9 col-md-8">{{ current_user.address}}</div>
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                    <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                    <div class="col-lg-3 col-md-4 label">Contact</div>
+                    <div class="col-lg-9 col-md-8">{{ current_user.contact }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                    <div class="col-lg-9 col-md-8">{{ current_user.email }}</div>
                   </div>
 
                 </div>
@@ -229,7 +224,7 @@
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="{{ url_for('static', filename='img/'+current_user.image_file) }}" alt="Profile">
+                        <img src="{{ url_for('static', filename='profile_img/'+current_user.image_file) }}" alt="Profile">
                       </div>
                     </div>
 
@@ -298,7 +293,7 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.username.label(class="form-control-label") }}</label>
+                      <label class="col-md-4 col-lg-3 col-form-label">{{ form.username.label(class="form-control-label") }}</label>
                       <div class="form-group">
                         
                         {% if form.username.errors %}
@@ -351,7 +346,7 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.username.label(class="form-control-label") }}</label>
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ form.email.label(class="form-control-label") }}</label>
                       <div class="form-group">
                         
                         {% if form.email.errors %}
@@ -377,7 +372,7 @@
                 <div class="tab-pane fade pt-3" id="profile-settings">
 
                   <!-- Settings Form -->
-                  <form method="POST" action="">
+                  <form method="POST" action="" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
 
                     <div class="row mb-3">
@@ -419,7 +414,7 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form method="POST" action="">
+                  <form method="POST" action="" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
 
                     <div class="row mb-3">

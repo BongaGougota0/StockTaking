@@ -7,54 +7,24 @@ Fri Jan 13 02:54:21 2023
 from flask import Flask, render_template, url_for, flash, json, redirect, jsonify, request, abort
 from flask_login import current_user, logout_user, login_user, login_required
 from stocktake_app import db, app, bcrypt
-from stocktake_app.forms import Login, Registration, AddProduct, EditProfileForm, EditProductForm, CreateStoreForm
+from stocktake_app.forms import Login, Registration, NewCategoryForm, AddProduct, EditProfileForm, EditProductForm, CreateStoreForm
 from stocktake_app.models import User, List, Admin, Category, Product, Store, App
 
 '''--------------------------------Site Admin API End Points'''
-
-# @app.route("/my_account", methods=["GET", "POST"])
-# @login_required
-# def my_account():
-#     form = EditProfileForm()
-#     if form.validate_on_submit():
-#         if form.picture.data:
-#             picture_file = save_image(form.picture.data)
-#             current_user.image_file = picture_file
-#         current_user.name = form.name.data
-#         current_user.about = form.about.data
-#         current_user.username = form.username.data
-#         current_user.address = form.address.data
-#         current_user.contact = form.contact.data
-#         current_user.email = form.email.data
-#         current_user.location = form.location.data
-#         db.session.commit()
-#         flash('Successfully Update Account!', 'success')
-#         return redirect(url_for('my_account'))
-#     elif request.method == 'GET':
-#         form.name.data = current_user.name
-#         form.username.data = current_user.username
-#         form.email.data = current_user.email
-#         form.location.data = current_user.location
-#         form.address.data = current_user.address
-#         form.contact.data = current_user.contact
-#         form.about.data = current_user.about
-#     image_file = url_for('static', filename='img/' + current_user.image_file)
-#     return render_template('my_account.html', title='My Account', form=form, image_file=image_file)
-
 
 
 @app.route("/my_account", methods=["GET", "POST"])
 @login_required
 def my_account():
     form = EditProfileForm()
-    if form.validate_on_submit():
+    if form.validate():
         if form.picture.data:
-            picture_file = save_image(form.picture.data)
+            picture_file = save_image('static/profile_img/', form.picture.data)
             current_user.image_file = picture_file
+
         current_user.name = form.name.data
         current_user.username = form.username.data
         current_user.email = form.email.data
-        current_user.password = current_user.password
         current_user.address = form.address.data
         current_user.contact = form.contact.data
         current_user.location = form.location.data
@@ -63,6 +33,8 @@ def my_account():
 
         flash('Your account has been updated!', 'success')
         return redirect(url_for('my_account'))
+        
+
     elif request.method == 'GET':
         form.name.data = current_user.name
         form.username.data = current_user.username
@@ -71,6 +43,12 @@ def my_account():
         form.address.data = current_user.address
         form.contact.data = current_user.contact
         form.about.data = current_user.about
+        
+    else:
+        for _, errors in form.errors.items():
+            for error in errors:
+                print(error)
+    
     return render_template('my_account.html', title='Account',form=form)
     
 
@@ -87,33 +65,6 @@ def dashboard():
     return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(set_))
 
 
-# @app.route("/new_product", methods=["GET","POST"])
-# @login_required
-# def new_product():
-#     form = AddProduct()
-#     store = Store.query.filter_by(user_id=current_user.id).first()
-#     if store:
-#         if form.validate_on_submit():
-#             product = Product(product_name=form.product_name.data,
-#             product_description=form.product_description, product_category=form.product_category,
-#             product_price=form.product_price, product_store=form.product_store,
-#             img_product=form.image_file, store_id=store.store_id)
-
-#             # Add this product to the store list
-#             store.products.append(product)
-#             # and to Products Table - testing phase
-#             db.session.add(product)
-#             db.session.commit()
-#             flash('Product succesfully Added to your store', 'success')
-#             return redirect( url_for(new_product) )
-#         else:
-#             # form error
-#             flash('Could not add product', 'warining')
-#             return render_template('new_product.html', title='New Product',
-#              form=form)
-#     flash('You do not have a store to manage/add product','success')
-#     return redirect( url_for('new_store'))
-
 @app.route("/new_product", methods=['GET', 'POST'])
 @login_required
 def new_product():
@@ -127,20 +78,19 @@ def new_product():
     if form.validate_on_submit():
         
         if form.picture.data:
-            picture_file = save_image(form.picture.data)
+            picture_file = save_image('static/products_img/', form.picture.data)
             
-            product = Product(product_name=form.product_name.data,
-            product_description=form.product_description, product_category=form.product_category,
-            product_price=form.product_price, product_store=form.product_store,
-            img_product=picture_file, store_id=store.store_id)
-            print('Your products added! success')
-            db.session.add(product)
-            db.session.commit()
-            # current_user.image_file = picture_file
-            flash('Your products added!', 'success')
-            return redirect(url_for('new_product'))
-        flash('You do not have a store to manage/add product','success')
-        return redirect( url_for('new_store'))
+        product = Product(product_name=form.product_name.data,
+        product_description=form.product_description.data, product_category=form.product_category.data,
+        product_price=form.product_price.data, product_store=form.product_store.data,
+        img_product=picture_file, store_id=store.store_id)
+        print('Your products added! success')
+        db.session.add(product)
+        db.session.commit()
+        # current_user.image_file = picture_file
+        flash('Your products added!', 'success')
+        return redirect(url_for('new_product'))
+        
     return render_template('new_product.html', title ="Add Product", form=form)
 
 
@@ -150,17 +100,20 @@ def new_product():
 @login_required
 def new_store():
     form = CreateStoreForm()
+    image_file = 'default.jpg'
 
-    if form.validate():
+    if form.validate_on_submit():
+        if form.picture.data:
+            image_file = save_image('static/img/', form.picture.data)
+
         store = Store(store_name=form.name.data, store_location=form.location.data,
         store_description=form.description.data, store_email=form.email.data, 
-        store_contact=form.contact.data, store_logo=form.image_file.data, 
+        store_contact=form.contact.data, store_logo=image_file, 
         user_id=current_user.id)
 
         db.session.add(store)
         db.session.commit()
 
-        # Store created now got add products!
         flash('Store created', 'success')
         return redirect(url_for('new_product'))
     return render_template('new_store.html', title='New Store', form=form)
@@ -218,15 +171,29 @@ def edit_product():
 @app.route('/create_category', methods=["GET", "POST"])
 @login_required
 def create_category():
+    form = NewCategoryForm()
+
+    if form.validate_on_submit():
+        if form.image_file.data:
+            image_file = save_image('static/img/', form.image_file.data)
+            
+        category = Category(category_name=form.category_name.data,
+         category_description=form.category_description, image_file=image_file)
+
+        db.session.add(category)
+        db.session.commit()
+        flash('Category created,now add products.')
+        return redirect( url_for('new_products') )
+
     return render_template('create_category.html', title='Create Category')
 
 import os, secrets
 from PIL import Image
-def save_image(picture_data):
+def save_image(path, picture_data):
     rand_name = secrets.token_hex(10)
     _, ext = os.path.splitext(picture_data.filename)
     new_filename = rand_name + ext
-    file_path = os.path.join(app.root_path, 'static/img/' + new_filename)
+    file_path = os.path.join(app.root_path, path + new_filename)
 
     '''resize image here'''
     output_size = (200, 200) # method used by diff. call this will vary

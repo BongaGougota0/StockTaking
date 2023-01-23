@@ -39,19 +39,13 @@ class EditProfileForm(FlaskForm):
 	location = StringField('Location')
 	contact = StringField('Contact')
 	address = StringField('Address')
-	email = StringField("Email", validators=[DataRequired()])
-	username = StringField("Username", validators=[DataRequired()])
+	email = StringField("Email")
+	username = StringField("Username")
 	picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpeg', 'png', 'jpg'])])
 	name = StringField("Name")
 	about = TextAreaField("About Store")
 
-	# Change password fields
-	current_psswd = PasswordField("Current Password", validators=[DataRequired()])
-	new_psswd = PasswordField("Current Password", validators=[DataRequired()])
-	conf_psswd = PasswordField("Current Password", validators=[DataRequired(), EqualTo(new_psswd)])
-
 	save_changes = SubmitField('Save Changes')
-	change_password = SubmitField('Change Password')
 
 	#verify changes before pushing to database
 	def validate_username(self, username):
@@ -81,9 +75,7 @@ class CreateStoreForm(FlaskForm):
 	location = StringField('Store Location')
 	email = StringField('Store Email', validators=[DataRequired()])
 	contact = StringField('Store Contact', validators=[DataRequired()])
-	image_file = FileField('Store Image/Logo', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
-	# auto inserted
-	admin_id = StringField(validators=[DataRequired()])
+	picture = FileField('Store Image/Logo', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 
 	create_store = SubmitField('Create Store')
 
@@ -94,8 +86,8 @@ class AddProduct(FlaskForm):
 	product_price = StringField('Price', validators=[DataRequired()])
 	product_quantity = StringField('In Stock', validators=[DataRequired()])
 	product_store = StringField('Store Seller', validators=[DataRequired()])
-	image_file = FileField('Product Image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
-	store_id = StringField(validators=[DataRequired()])
+	picture = FileField('Product Image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+	# store_id = StringField(validators=[DataRequired()])
 
 	create_button = SubmitField('Create Product')
 
@@ -107,11 +99,11 @@ class EditProductForm(FlaskForm):
 	product_quantity = StringField('In Stock', validators=[DataRequired()])
 	product_store = StringField('Store Seller', validators=[DataRequired()])
 	image_file = FileField('Upload category image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
-	store_id = StringField(validators=[DataRequired()])
+	# store_id = StringField(validators=[DataRequired()])
 
 	save_changes = SubmitField('Save Changes')
 
-class NewCategory(FlaskForm):
+class NewCategoryForm(FlaskForm):
 	category_name = StringField('Product Name', validators=[DataRequired()])
 	category_description = StringField('Your Full Name', validators=[DataRequired()])
 	image_file = FileField('Upload category image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
