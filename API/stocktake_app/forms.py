@@ -109,3 +109,10 @@ class NewCategoryForm(FlaskForm):
 	image_file = FileField('Upload category image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 
 	create_button = SubmitField('Create Category')
+
+class PasswordChangeForm(FlaskForm):
+	current_password = StringField("Current Password", validators=[DataRequired()])
+	new_password = StringField("New Password", validators=[DataRequired()])
+	confirm_password = StringField("Confirm Password", validators=[DataRequired()])
+
+	change_password = SubmitField("Change Password", validators=[EqualTo('new_password')])

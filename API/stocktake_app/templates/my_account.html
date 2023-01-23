@@ -37,86 +37,133 @@
 
       </header><!-- End Header -->
 
-      <!-- ======= Sidebar ======= -->
-      <aside id="sidebar" class="sidebar">
+             <!-- ======= Sidebar ======= -->
+             <aside id="sidebar" class="sidebar">
 
-        <ul class="sidebar-nav" id="sidebar-nav">
+              <ul class="sidebar-nav" id="sidebar-nav">
   
-        <li class="nav-item">
-            <a class="nav-link " href="index.html">
-            <i class="bi bi-grid"></i>
-            <span>Dashboard</span>
-            </a>
-        </li><!-- End Dashboard Nav -->
+                  <li class="nav-item">
+                      <a class="nav-link " href="{{ url_for('dashboard') }}">
+                      <i class="bi bi-grid"></i>
+                      <span>Dashboard</span>
+                      </a>
+                  </li><!-- End Dashboard Nav -->
   
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="tables-general.html">
-                    <i class="bi bi-circle"></i><span>General Tables</span>
-                    </a>
-                </li>
-            </ul>
-        </li><!-- End Tables Nav -->
+                  <li class="nav-item">
+                      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                      <i class="bi bi-layout-text-window-reverse"></i><span>Store Management</span><i class="bi bi-chevron-down ms-auto"></i>
+                      </a>
+                      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                          <li>
+                              <a href="tables-general.html">
+                              <i class="bi bi-circle"></i><span>Sale Records</span>
+                              </a>
+                          </li>
+                      </ul>
+                      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                          <li>
+                              <a href="tables-general.html">
+                              <i class="bi bi-circle"></i><span>Store Categories</span>
+                              </a>
+                          </li>
+                      </ul>
+                      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                          <li>
+                              <a href="tables-general.html">
+                              <i class="bi bi-circle"></i><span>Store Products</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </li><!-- End Tables Nav -->
   
   
-        <li class="nav-heading">Pages</li>
+                  <li class="nav-heading">Pages</li>
+                  
   
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ url_for('my_account')}}">
-            <i class="bi bi-person"></i>
-            <span>Profile</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
+                  {% if store == None %}
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('my_account')}}">
+                              <i class="bi bi-person"></i>
+                              <span>Profile</span>
+                              </a>
+                          </li><!-- End Profile Page Nav -->
   
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-faq.html">
-            <i class="bi bi-question-circle"></i>
-            <span>F.A.Q</span>
-            </a>
-        </li><!-- End F.A.Q Page Nav -->
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="pages-faq.html">
+                              <i class="bi bi-question-circle"></i>
+                              <span>F.A.Q</span>
+                              </a>
+                          </li><!-- End F.A.Q Page Nav -->
   
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ url_for('new_product') }}">
-            <i class="bi bi-envelope"></i>
-            <span>Add New Product</span>
-            </a>
-        </li><!-- End Add product Page Nav -->
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('new_product') }}">
+                              <i class="bi bi-envelope"></i>
+                              <span>Add New Product</span>
+                              </a>
+                          </li><!-- End Add product Page Nav -->
   
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ url_for('edit_product') }}">
-            <i class="bi bi-card-list"></i>
-            <span>Edit Existing Product</span>
-            </a>
-        </li><!-- End Register Page Nav -->
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('edit_product') }}">
+                              <i class="bi bi-card-list"></i>
+                              <span>Edit Existing Product</span>
+                              </a>
+                          </li><!-- End Register Page Nav -->
   
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-error-404.html">
-            <i class="bi bi-dash-circle"></i>
-            <span>Error 404</span>
-            </a>
-        </li><!-- End Error 404 Page Nav -->
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('new_store') }}">
+                              <i class="bi bi-card-list"></i>
+                              <span>Create Your Store</span>
+                              </a>
+                          </li><!-- End Register Page Nav -->
   
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-blank.html">
-            <i class="bi bi-file-earmark"></i>
-            <span>Blank</span>
-            </a>
-        </li><!-- End Blank Page Nav -->
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('logout') }}">
+                              <i class="bi bi-box-arrow-in-right"></i>
+                              <span>Log Out</span>
+                              </a>
+                          </li><!-- End Login Page Nav -->
+                  {% else %}
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('my_account')}}">
+                              <i class="bi bi-person"></i>
+                              <span>Profile</span>
+                              </a>
+                          </li><!-- End Profile Page Nav -->
   
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ url_for('logout') }}">
-            <i class="bi bi-box-arrow-in-right"></i>
-            <span>Log Out</span>
-            </a>
-        </li><!-- End Login Page Nav -->
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="pages-faq.html">
+                              <i class="bi bi-question-circle"></i>
+                              <span>F.A.Q</span>
+                              </a>
+                          </li><!-- End F.A.Q Page Nav -->
   
-        </ul>
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('new_product') }}">
+                              <i class="bi bi-envelope"></i>
+                              <span>Add New Product</span>
+                              </a>
+                          </li><!-- End Add product Page Nav -->
   
-      </aside><!-- End Sidebar-->
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('edit_product') }}">
+                              <i class="bi bi-card-list"></i>
+                              <span>Edit Existing Product</span>
+                              </a>
+                          </li><!-- End Register Page Nav -->
+  
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('logout') }}">
+                              <i class="bi bi-box-arrow-in-right"></i>
+                              <span>Log Out</span>
+                              </a>
+                          </li><!-- End Login Page Nav -->
+                  {% endif %}
+  
+  
+              </ul>
+  
+          </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
@@ -175,7 +222,7 @@
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                   <h5 class="card-title">About</h5>
-                  <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+                  <p class="small fst-italic">{{ current_user.about }}</p>
 
                   <h5 class="card-title">Profile Overview</h5>
 
@@ -195,8 +242,8 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">About</div>
-                    <div class="col-lg-9 col-md-8">{{ current_user.about }}</div>
+                    <div class="col-lg-3 col-md-4 label">Location</div>
+                    <div class="col-lg-9 col-md-8">{{ current_user.location }}</div>
                   </div>
 
                   <div class="row">
@@ -418,28 +465,58 @@
                     {{ form.hidden_tag() }}
 
                     <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ formPass.current_password.label(class="form-control-label") }}</label>
+                      <div class="form-group">
+                        
+                        {% if formPass.current_password.errors %}
+                            {{ formPass.current_password(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in formPass.current_password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ formPass.current_password(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ formPass.new_password.label(class="form-control-label") }}</label>
+                      <div class="form-group">
+                        
+                        {% if formPass.new_password.errors %}
+                            {{ formPass.new_password(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in formPass.new_password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ formPass.new_password(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">{{ formPass.confirm_password.label(class="form-control-label") }}</label>
+                      <div class="form-group">
+                        
+                        {% if formPass.confirm_password.errors %}
+                            {{ formPass.confirm_password(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in formPass.confirm_password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ formPass.confirm_password(class="form-control form-control-lg") }}
+                        {% endif %}
                       </div>
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
+                      <button type="submit" class="btn btn-primary">{{ formPass.change_password(class="btn btn-primary w-100") }}</button>
                     </div>
                   </form><!-- End Change Password Form -->
 

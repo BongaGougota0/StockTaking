@@ -7,7 +7,7 @@ Fri Jan 13 02:54:21 2023
 from flask import Flask, render_template, url_for, flash, json, redirect, jsonify, request, abort
 from flask_login import current_user, logout_user, login_user, login_required
 from stocktake_app import db, app, bcrypt
-from stocktake_app.forms import Login, Registration, NewCategoryForm, AddProduct, EditProfileForm, EditProductForm, CreateStoreForm
+from stocktake_app.forms import Login, Registration, NewCategoryForm, PasswordChangeForm, AddProduct, EditProfileForm, EditProductForm, CreateStoreForm
 from stocktake_app.models import User, List, Admin, Category, Product, Store, App
 
 '''--------------------------------Site Admin API End Points'''
@@ -16,7 +16,9 @@ from stocktake_app.models import User, List, Admin, Category, Product, Store, Ap
 @app.route("/my_account", methods=["GET", "POST"])
 @login_required
 def my_account():
+    store = side_bar()
     form = EditProfileForm()
+    formPass = PasswordChangeForm()
     if form.validate():
         if form.picture.data:
             picture_file = save_image('static/profile_img/', form.picture.data)
@@ -33,7 +35,6 @@ def my_account():
 
         flash('Your account has been updated!', 'success')
         return redirect(url_for('my_account'))
-        
 
     elif request.method == 'GET':
         form.name.data = current_user.name
@@ -48,8 +49,27 @@ def my_account():
         for _, errors in form.errors.items():
             for error in errors:
                 print(error)
+
+    if formPass.validate_on_submit():
+        
+        if bcrypt.check_password_hash(current_user.password, formPass.current_password.data):
+            hash_password = bcrypt.generate_password_hash(formPass.new_password.data).decode('utf-8')
+
+            current_user.name = current_user.name
+            current_user.username = current_user.username
+            current_user.email = current_user.email
+            current_user.address = current_user.address
+            current_user.contact = current_user.contact
+            current_user.location = current_user.location
+            current_user.about = current_user.about
+            current_user.password = hash_password
+            db.session.commit()
+            return redirect( url_for('dashboard') )
+
+        else:
+            return redirect( url_for('my_account') )
     
-    return render_template('my_account.html', title='Account',form=form)
+    return render_template('my_account.html', title='Account', store=store, form=form, formPass = formPass)
     
 
 
@@ -62,16 +82,29 @@ def dashboard():
     my_dict3 = {'name':'Revanue', 'data':[13, 61, 19, 37, 29, 8, 9]}
     set_ = [my_dict1, my_dict2, my_dict3]
 
-    return render_template('dashboard.html', title='Dashboard', my_data = json.dumps(set_))
+    store = side_bar()
+
+    try:
+        products = Product.query.filter_by(store_id = store.user_id)
+    except AttributeError:
+        products = Product.query.all()
+
+    return render_template('dashboard.html', title='Dashboard', store=store, products=products, my_data = json.dumps(set_))
+
+def side_bar():
+    store = Store.query.filter_by(user_id=current_user.id).first()
+    return store
 
 
 @app.route("/new_product", methods=['GET', 'POST'])
 @login_required
 def new_product():
     form = AddProduct()
-    store = Store.query.filter_by(user_id=current_user.id).first()
+    storeCheck = Store.query.filter_by(user_id=current_user.id).first()
 
-    if store is None:
+    store = side_bar()
+
+    if storeCheck is None:
         flash('You do not have a store to manage/add product','success')
         return redirect( url_for('new_store'))
     
@@ -91,7 +124,7 @@ def new_product():
         flash('Your products added!', 'success')
         return redirect(url_for('new_product'))
         
-    return render_template('new_product.html', title ="Add Product", form=form)
+    return render_template('new_product.html', title ="Add Product", store=store, form=form)
 
 
 
@@ -101,6 +134,7 @@ def new_product():
 def new_store():
     form = CreateStoreForm()
     image_file = 'default.jpg'
+    store = side_bar()
 
     if form.validate_on_submit():
         if form.picture.data:
@@ -116,7 +150,7 @@ def new_store():
 
         flash('Store created', 'success')
         return redirect(url_for('new_product'))
-    return render_template('new_store.html', title='New Store', form=form)
+    return render_template('new_store.html', title='New Store', store=store, form=form)
 
 
 @app.route("/logout")
@@ -167,10 +201,20 @@ def edit_product():
     form = EditProductForm()
     return render_template('edit_product.html', title='Edit Product', form=form)
 
+@app.route("/all_products", methods=["GET", "POST"])
+@login_required
+def all_products():
+    store = side_bar()
+    form = EditProductForm()
+    products = Product.query.all()
+
+    return render_template('all_products.html', products = products, store = store, form=form)
+
 
 @app.route('/create_category', methods=["GET", "POST"])
 @login_required
 def create_category():
+    store = side_bar()
     form = NewCategoryForm()
 
     if form.validate_on_submit():
@@ -185,7 +229,7 @@ def create_category():
         flash('Category created,now add products.')
         return redirect( url_for('new_products') )
 
-    return render_template('create_category.html', title='Create Category')
+    return render_template('create_category.html', title='Create Category', store=store)
 
 import os, secrets
 from PIL import Image

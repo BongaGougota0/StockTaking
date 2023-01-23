@@ -1,3 +1,250 @@
 {% extends "admin_layout.html" %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 {% block content %}
+<div>
+
+      <!-- ======= Header ======= -->
+      <header id="header" class="header fixed-top d-flex align-items-center">
+
+          <div class="d-flex align-items-center justify-content-between">
+          <a href="{{ url_for('dashboard') }}" class="logo d-flex align-items-center">
+              <img src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+              <span class="d-none d-lg-block">Stocktake Admin</span>
+          </a>
+          <i class="bi bi-list toggle-sidebar-btn"></i>
+          </div><!-- End Logo -->
+
+          <div class="search-bar">
+          <form class="search-form d-flex align-items-center" method="POST" action="#">
+              <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+              <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+          </form>
+          </div><!-- End Search Bar -->
+
+          <nav class="header-nav ms-auto">
+              <ul class="d-flex align-items-center">
+
+                  <li class="nav-item d-block d-lg-none">
+                  <a class="nav-link nav-icon search-bar-toggle " href="#">
+                      <i class="bi bi-search"></i>
+                  </a>
+                  </li><!-- End Search Icon-->
+
+                  <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                      <img src="{{ url_for('static', filename='profile_img/' + current_user.image_file) }}" alt="Profile" class="rounded-circle">
+                      <span class="d-none d-md-block dropdown-toggle ps-2">{{ current_user.username }}</span>
+                  </a><!-- End Profile Iamge Icon -->
+
+              </ul>
+          </nav><!-- End Icons Navigation -->
+
+      </header><!-- End Header -->
+  
+            <!-- ======= Sidebar ======= -->
+            <aside id="sidebar" class="sidebar">
+
+              <ul class="sidebar-nav" id="sidebar-nav">
+  
+                  <li class="nav-item">
+                      <a class="nav-link " href="{{ url_for('dashboard') }}">
+                      <i class="bi bi-grid"></i>
+                      <span>Dashboard</span>
+                      </a>
+                  </li><!-- End Dashboard Nav -->
+  
+                  <li class="nav-item">
+                      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                      <i class="bi bi-layout-text-window-reverse"></i><span>Store Management</span><i class="bi bi-chevron-down ms-auto"></i>
+                      </a>
+                      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                          <li>
+                              <a href="tables-general.html">
+                              <i class="bi bi-circle"></i><span>Sale Records</span>
+                              </a>
+                          </li>
+                      </ul>
+                      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                          <li>
+                              <a href="tables-general.html">
+                              <i class="bi bi-circle"></i><span>Store Categories</span>
+                              </a>
+                          </li>
+                      </ul>
+                      <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                          <li>
+                              <a href="tables-general.html">
+                              <i class="bi bi-circle"></i><span>Store Products</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </li><!-- End Tables Nav -->
+  
+  
+                  <li class="nav-heading">Pages</li>
+                  
+  
+                  {% if store == None %}
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('my_account')}}">
+                              <i class="bi bi-person"></i>
+                              <span>Profile</span>
+                              </a>
+                          </li><!-- End Profile Page Nav -->
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="pages-faq.html">
+                              <i class="bi bi-question-circle"></i>
+                              <span>F.A.Q</span>
+                              </a>
+                          </li><!-- End F.A.Q Page Nav -->
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('new_product') }}">
+                              <i class="bi bi-envelope"></i>
+                              <span>Add New Product</span>
+                              </a>
+                          </li><!-- End Add product Page Nav -->
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('edit_product') }}">
+                              <i class="bi bi-card-list"></i>
+                              <span>Edit Existing Product</span>
+                              </a>
+                          </li><!-- End Register Page Nav -->
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('new_store') }}">
+                              <i class="bi bi-card-list"></i>
+                              <span>Create Your Store</span>
+                              </a>
+                          </li><!-- End Register Page Nav -->
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('logout') }}">
+                              <i class="bi bi-box-arrow-in-right"></i>
+                              <span>Log Out</span>
+                              </a>
+                          </li><!-- End Login Page Nav -->
+                  {% else %}
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('my_account')}}">
+                              <i class="bi bi-person"></i>
+                              <span>Profile</span>
+                              </a>
+                          </li><!-- End Profile Page Nav -->
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="pages-faq.html">
+                              <i class="bi bi-question-circle"></i>
+                              <span>F.A.Q</span>
+                              </a>
+                          </li><!-- End F.A.Q Page Nav -->
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('new_product') }}">
+                              <i class="bi bi-envelope"></i>
+                              <span>Add New Product</span>
+                              </a>
+                          </li><!-- End Add product Page Nav -->
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('edit_product') }}">
+                              <i class="bi bi-card-list"></i>
+                              <span>Edit Existing Product</span>
+                              </a>
+                          </li><!-- End Register Page Nav -->
+  
+  
+                          <li class="nav-item">
+                              <a class="nav-link collapsed" href="{{ url_for('logout') }}">
+                              <i class="bi bi-box-arrow-in-right"></i>
+                              <span>Log Out</span>
+                              </a>
+                          </li><!-- End Login Page Nav -->
+                  {% endif %}
+  
+  
+              </ul>
+  
+          </aside><!-- End Sidebar-->
+
+  
+    <main id="main" class="main">
+  
+      <div class="pagetitle">
+        <h1>Products Managements</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Add</a></li>
+            <li class="breadcrumb-item">Edit Product</li>
+            <li class="breadcrumb-item active">All Products</li>
+          </ol>
+        </nav>
+      </div><!-- End Page Title -->
+  
+      <section>
+
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                
+            
+                <table class="table table-borderless datatable">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Description</th>
+                        <th scope="col">Product Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Store</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for product in products %}
+
+                        <tr>
+                            <th scope="row"><a href="#">{{ product.id }}</a></th>
+                            <td>{{ product.product_name }}</td>
+                            <td><a href="#" class="text-primary">{{ product.product_description }}</a></td>
+                            <td>R {{ product.product_price }}</td>
+                            <td><span class="badge bg-success">{{ product.product_category }}</span></td>
+                            <td>R {{ product.product_store }}</td>
+                        </tr>
+
+                    {% endfor %}
+                
+                    </tbody>
+                </table>
+
+        
+            </form>
+      </section>
+  
+    </main><!-- End #main -->
+  
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  
+    <!-- Vendor JS Files -->
+    <script src="{{ url_for('static', filename='vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/quill/quill.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/php-email-form/validate.js') }}"></script>
+  
+    <!-- Template Main JS File -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  
+  </div>
 {% endblock %}
