@@ -2,8 +2,8 @@
 App built by Bonga G., 
 started in 17 November 2022 - Shelved!
 
-## Project Abandoned 
-1. Derivatives of this project exist as Bakery-Store-RE and foodways (in development June 2, 2024). Both developments are in Java. 
+## Project Abandoned because
+1. Derivatives of this project exist as Bakery-Store-RE and foodaways (in development June 2, 2024). Both are in Java (Vaadin and Springboot respectively). 
 The only difference is, the derivatives of this project do not include a mobile application.
 2. No intention to learn PHP, rather focused on building other skills (Spring, MERN stack, Java SE etc.)
 
@@ -33,3 +33,5 @@ needs, items that are frequently on the shopping list of consumers, most bought 
  - Share spending/shoping data (prompted or will be requested by the App).
  - (Price checker) App can be used to compare prices of products available on the database/repository
  - Assists users find the most affordable store for their groceries, shopping etc.
+
+ ## 
